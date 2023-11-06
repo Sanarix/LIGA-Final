@@ -1,12 +1,18 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { PageContainer, SearchInput } from '../../components/index';
+import { RootState } from '../../store/store';
 import { Task } from './task/Task';
 
 export function TaskList() {
   const [searchText, setSearchText] = useState('');
-  const tasks = [{ name: 'task1' }, { name: 'task2' }, { name: 'task3' }, { name: 'task4' }, { name: 'task5' }];
+  const data = useSelector((state: RootState) => {
+    return state;
+  });
+
   const navigate = useNavigate();
+
   return (
     <PageContainer className="task-list">
       <header className="header">
@@ -21,10 +27,17 @@ export function TaskList() {
         </form>
       </header>
       <div className="tasks-wrapper">
-        {tasks.map((task, i) => {
+        {data.tasks.taskList.map((task, i) => {
           return (
             <Task key={i}>
               <p>{task.name}</p>
+              <p>{task.info}</p>
+              <button
+                onClick={() => {
+                  navigate(`/TaskForm/${task.id}`);
+                }}>
+                Edit
+              </button>
             </Task>
           );
         })}
