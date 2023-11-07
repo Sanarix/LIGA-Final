@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { PageContainer, SearchInput } from '../../components/index';
 import { RootState } from '../../store/store';
-import { Task } from './task/Task';
+import { List } from './list/List';
+import styles from './TaskList.module.css';
 
 export function TaskList() {
   const [searchText, setSearchText] = useState('');
@@ -15,7 +16,7 @@ export function TaskList() {
 
   return (
     <PageContainer className="task-list">
-      <header className="header">
+      <header className={styles.header}>
         <h1 className="">Todo List</h1>
         <form id="seacrh-from">
           <SearchInput
@@ -26,22 +27,7 @@ export function TaskList() {
           />
         </form>
       </header>
-      <div className="tasks-wrapper">
-        {data.tasks.taskList.map((task, i) => {
-          return (
-            <Task key={i}>
-              <p>{task.name}</p>
-              <p>{task.info}</p>
-              <button
-                onClick={() => {
-                  navigate(`/TaskForm/${task.id}`);
-                }}>
-                Edit
-              </button>
-            </Task>
-          );
-        })}
-      </div>
+      <List tasks={data.tasks.taskList} navigate={navigate} />
       <button
         className="button"
         onClick={() => {

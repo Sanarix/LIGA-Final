@@ -1,0 +1,24 @@
+.checkbox {
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 80%;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  width: 10%;
+}
+
+.button {
+  margin-bottom: 5%;
+}
