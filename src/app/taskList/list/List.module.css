@@ -20,5 +20,10 @@
 }
 
 .button {
+  background-color: lemonchiffon;
   margin-bottom: 5%;
+}
+
+.deleteButton {
+  background: tomato;
 }

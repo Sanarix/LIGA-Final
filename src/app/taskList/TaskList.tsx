@@ -29,7 +29,7 @@ export function TaskList() {
       </header>
       <List tasks={data.tasks.taskList} navigate={navigate} />
       <button
-        className="button"
+        className={styles.addButton}
         onClick={() => {
           navigate('/TaskForm');
         }}>

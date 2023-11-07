@@ -1,9 +1,12 @@
+import { useDispatch } from 'react-redux';
 import { Task } from '../task/Task';
 import type { ListProps } from './List.types';
 import styles from './List.module.css';
 import { Checkbox } from 'components/Checkbox';
+import { deleteTask } from 'src/store/slices/tasksList/tasksList.slice';
 
 export function List({ tasks, navigate }: ListProps) {
+  const dispatch = useDispatch();
   return (
     <div className="tasks-wrapper">
       {tasks.map((task, i) => {
@@ -25,9 +28,9 @@ export function List({ tasks, navigate }: ListProps) {
                 Edit
               </button>
               <button
-                className={styles.button}
+                className={styles.deleteButton}
                 onClick={() => {
-                  navigate(`/TaskForm/${task.id}`);
+                  dispatch(deleteTask(task.id));
                 }}>
                 Delete
               </button>
