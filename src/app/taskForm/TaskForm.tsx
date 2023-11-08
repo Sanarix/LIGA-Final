@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { Checkbox, PageContainer, TextField } from '../../components/index';
@@ -15,6 +15,7 @@ export function TaskForm() {
   const [taskName, setTaskName] = useState(editedTask?.name || '');
   const [taskDescr, setTaskDescr] = useState(editedTask?.info || '');
   const [isImportant, setIsImportant] = useState(editedTask?.isImportant || false);
+  const navigate = useNavigate();
 
   function clearForm() {
     setTaskName('');
@@ -33,6 +34,7 @@ export function TaskForm() {
           isImportant: isImportant,
         })
       );
+      navigate('/');
     } else {
       dispatch(addTask({ name: taskName, info: taskDescr, isImportant: isImportant }));
       clearForm();
@@ -63,7 +65,9 @@ export function TaskForm() {
             setIsImportant((prev) => !prev);
           }}
         />
-        <button className={style['add-button']}>{id ? 'EDIT TASK' : 'ADD TASK'}</button>
+        <Link to="/" className={style['add-button']} replace>
+          {id ? 'EDIT TASK' : 'ADD TASK'}
+        </Link>
       </form>
     </PageContainer>
   );
