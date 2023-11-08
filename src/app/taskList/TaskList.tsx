@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { PageContainer, SearchInput } from '../../components/index';
 import { RootState } from '../../store/store';
@@ -11,8 +11,6 @@ export function TaskList() {
   const data = useSelector((state: RootState) => {
     return state;
   });
-
-  const navigate = useNavigate();
 
   return (
     <PageContainer className="task-list">
@@ -27,14 +25,10 @@ export function TaskList() {
           />
         </form>
       </header>
-      <List tasks={data.tasks.taskList} navigate={navigate} />
-      <button
-        className={styles.addButton}
-        onClick={() => {
-          navigate('/TaskForm');
-        }}>
+      <List tasks={data.tasks.taskList} />
+      <Link to="/TaskForm" className={styles.addButton}>
         Add Task
-      </button>
+      </Link>
     </PageContainer>
   );
 }

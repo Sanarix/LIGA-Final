@@ -1,11 +1,12 @@
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Task } from '../task/Task';
 import type { ListProps } from './List.types';
 import styles from './List.module.css';
 import { Checkbox } from 'components/Checkbox';
 import { deleteTask } from 'src/store/slices/tasksList/tasksList.slice';
 
-export function List({ tasks, navigate }: ListProps) {
+export function List({ tasks }: ListProps) {
   const dispatch = useDispatch();
   return (
     <div className="tasks-wrapper">
@@ -20,13 +21,9 @@ export function List({ tasks, navigate }: ListProps) {
               <p>{task.info}</p>
             </div>
             <div className={styles.buttons}>
-              <button
-                className={styles.button}
-                onClick={() => {
-                  navigate(`/TaskForm/${task.id}`);
-                }}>
+              <Link to={`/TaskForm/${task.id}`} className={styles.button}>
                 Edit
-              </button>
+              </Link>
               <button
                 className={styles.deleteButton}
                 onClick={() => {
