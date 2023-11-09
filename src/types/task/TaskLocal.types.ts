@@ -3,5 +3,5 @@ export type TaskLocal = {
   info: string;
   isImportant: boolean;
   isCompleted?: boolean;
-  id?: number;
+  id: number;
 };

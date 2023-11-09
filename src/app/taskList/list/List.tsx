@@ -9,7 +9,7 @@ import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
 import { Loader } from 'components/Loader';
 
 export function List({ tasksArr }: ListProps) {
-  const { isLoading, tasks, dispatch, fetchTasks } = useTasksSlice();
+  const { isLoading, tasks, dispatch, fetchTasks, removeTaskById } = useTasksSlice();
 
   const handler = () => {
     dispatch(fetchTasks());
@@ -40,7 +40,7 @@ export function List({ tasksArr }: ListProps) {
                 <button
                   className={styles.deleteButton}
                   onClick={() => {
-                    dispatch(deleteTask(task.id));
+                    dispatch(removeTaskById(task.id));
                   }}>
                   Delete
                 </button>
