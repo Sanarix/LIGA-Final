@@ -1,7 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
 import type { TasksState } from './tasksListSlice.types';
-import type { TaskLocal } from 'src/types/task/TaskLocal.types';
 import { tasksState } from 'src/mocks/initialTasks';
 
 const initialState: TasksState = {
@@ -12,10 +10,10 @@ export const tasksListSlice = createSlice({
   name: 'tasksList',
   initialState,
   reducers: {
-    addTask: (state, action: PayloadAction<TaskLocal>) => {
+    addTask: (state, action) => {
       state.taskList.push(action.payload);
     },
-    changeTask: (state, action: PayloadAction<TaskLocal>) => {
+    changeTask: (state, action) => {
       state.taskList = state.taskList.map((task) => {
         if (task.id === action.payload.id) {
           return action.payload;
@@ -23,7 +21,7 @@ export const tasksListSlice = createSlice({
         return task;
       });
     },
-    deleteTask: (state, action: PayloadAction<number | unknown>) => {
+    deleteTask: (state, action) => {
       if (action.payload) {
         state.taskList = state.taskList.filter((task) => task.id !== action.payload);
       }
