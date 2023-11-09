@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { TasksState } from './tasksListSlice.types';
-import { tasksState } from 'src/mocks/initialTasks';
 
 const initialState: TasksState = {
-  tasksData: tasksState,
+  tasksData: [],
   isLoading: false,
 };
 

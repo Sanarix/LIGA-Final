@@ -15,6 +15,10 @@ export function List({ tasksArr }: ListProps) {
     dispatch(fetchTasks());
   };
 
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, []);
+
   return (
     <div className="tasks-wrapper">
       <button onClick={() => handler()}>Получить таски</button>
