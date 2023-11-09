@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 // import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 import tasksListReducer from './slices/tasksList/tasksList.slice';
 
 export const store = configureStore({
@@ -7,6 +8,7 @@ export const store = configureStore({
     tasks: tasksListReducer,
   },
   // middleware: [logger], ругается на logger
+  middleware: [thunk],
 });
 
 export type RootState = ReturnType<typeof store.getState>;
