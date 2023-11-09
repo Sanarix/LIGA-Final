@@ -11,17 +11,12 @@ import { Loader } from 'components/Loader';
 export function List({ tasksArr }: ListProps) {
   const { isLoading, tasks, dispatch, fetchTasks, removeTaskById } = useTasksSlice();
 
-  const handler = () => {
-    dispatch(fetchTasks());
-  };
-
   useEffect(() => {
     dispatch(fetchTasks());
   }, []);
 
   return (
     <div className="tasks-wrapper">
-      <button onClick={() => handler()}>Получить таски</button>
       <Loader isLoading={isLoading}>
         {tasksArr.map((task, i) => {
           return (
