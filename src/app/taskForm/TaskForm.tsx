@@ -1,10 +1,10 @@
 import { useParams, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { Checkbox, PageContainer, TextField } from '../../components/index';
-import { addTask, changeTask } from '../../store/slices/tasksList/tasksList.slice';
-import { RootState } from '../../store/store';
 import style from './TaskForm.module.css';
+import { Checkbox, PageContainer, TextField } from 'src/components/index';
+import { addTask, changeTask } from 'src/slices/tasksList/tasksList.slice';
+import { RootState } from 'src/store';
 
 export function TaskForm() {
   const { id } = useParams();

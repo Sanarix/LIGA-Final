@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { PageContainer, SearchInput } from '../../components/index';
-import { RootState } from '../../store/store';
 import { List } from './list/List';
 import styles from './TaskList.module.css';
+import { PageContainer, SearchInput } from 'src/components/index';
+import { RootState } from 'src/store';
 
 export function TaskList() {
   const [searchText, setSearchText] = useState('');

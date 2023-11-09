@@ -1,10 +1,10 @@
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Task } from '../task/Task';
 import type { ListProps } from './List.types';
 import styles from './List.module.css';
+import { Task } from 'src/app/taskList/task/Task';
 import { Checkbox } from 'components/Checkbox';
-import { deleteTask } from 'src/store/slices/tasksList/tasksList.slice';
+import { deleteTask } from 'src/slices/tasksList/tasksList.slice';
 
 export function List({ tasks }: ListProps) {
   const dispatch = useDispatch();

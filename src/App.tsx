@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { TaskList, TaskForm } from './app/index';
-import { store } from './store/store';
+import { TaskList, TaskForm } from 'src/app/index';
+import { store } from 'src/store';
 
 export default function App() {
   return (

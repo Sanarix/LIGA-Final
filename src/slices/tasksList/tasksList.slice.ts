@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { TaskLocal } from '../../../types/task/TaskLocal.types';
-import { tasksState } from '../../../mocks/initialTasks';
 import type { TasksState } from './tasksListSlice.types';
+import type { TaskLocal } from 'src/types/task/TaskLocal.types';
+import { tasksState } from 'src/mocks/initialTasks';
 
 const initialState: TasksState = {
   taskList: tasksState,
