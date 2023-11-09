@@ -25,7 +25,7 @@ export function TaskList() {
           />
         </form>
       </header>
-      <List tasks={data.tasksList.tasksData} />
+      <List tasksArr={data.tasksList.tasksData} />
       <Link to="/TaskForm" className={styles.addButton}>
         Add Task
       </Link>

@@ -1,16 +1,24 @@
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import type { ListProps } from './List.types';
 import styles from './List.module.css';
 import { Task } from 'src/app/taskList/task/Task';
 import { Checkbox } from 'components/Checkbox';
 import { deleteTask } from 'src/slices/tasksList/tasksList.slice';
+import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
 
-export function List({ tasks }: ListProps) {
-  const dispatch = useDispatch();
+export function List({ tasksArr }: ListProps) {
+  const { isLoading, tasks, dispatch, fetchTasks } = useTasksSlice();
+
+  const handler = () => {
+    dispatch(fetchTasks());
+  };
+
   return (
     <div className="tasks-wrapper">
-      {tasks.map((task, i) => {
+      <button onClick={() => handler()}>Получить таски</button>
+      {tasksArr.map((task, i) => {
         return (
           <Task key={i}>
             <div className={styles.checkbox}>
