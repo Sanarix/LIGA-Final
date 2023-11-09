@@ -4,12 +4,16 @@ import { tasksState } from 'src/mocks/initialTasks';
 
 const initialState: TasksState = {
   tasksData: tasksState,
+  isLoading: false,
 };
 
 export const tasksListSlice = createSlice({
   name: 'tasksList',
   initialState,
   reducers: {
+    setTasks: (state, action) => {
+      state.tasksData = action.payload.tasks;
+    },
     addTask: (state, action) => {
       state.tasksData.push(action.payload);
     },
@@ -26,8 +30,14 @@ export const tasksListSlice = createSlice({
         state.tasksData = state.tasksData.filter((task) => task.id !== action.payload);
       }
     },
+    setLoader: (state) => {
+      state.isLoading = true;
+    },
+    unsetLoader: (state) => {
+      state.isLoading = false;
+    },
   },
 });
 
-export const { addTask, changeTask, deleteTask } = tasksListSlice.actions;
+export const { addTask, changeTask, deleteTask, setLoader, unsetLoader, setTasks } = tasksListSlice.actions;
 export default tasksListSlice.reducer;
