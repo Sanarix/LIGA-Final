@@ -3,7 +3,7 @@ import type { TasksState } from './tasksListSlice.types';
 import { tasksState } from 'src/mocks/initialTasks';
 
 const initialState: TasksState = {
-  taskList: tasksState,
+  tasksData: tasksState,
 };
 
 export const tasksListSlice = createSlice({
@@ -11,10 +11,10 @@ export const tasksListSlice = createSlice({
   initialState,
   reducers: {
     addTask: (state, action) => {
-      state.taskList.push(action.payload);
+      state.tasksData.push(action.payload);
     },
     changeTask: (state, action) => {
-      state.taskList = state.taskList.map((task) => {
+      state.tasksData = state.tasksData.map((task) => {
         if (task.id === action.payload.id) {
           return action.payload;
         }
@@ -23,7 +23,7 @@ export const tasksListSlice = createSlice({
     },
     deleteTask: (state, action) => {
       if (action.payload) {
-        state.taskList = state.taskList.filter((task) => task.id !== action.payload);
+        state.tasksData = state.tasksData.filter((task) => task.id !== action.payload);
       }
     },
   },

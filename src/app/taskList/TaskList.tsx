@@ -4,11 +4,11 @@ import { useSelector } from 'react-redux';
 import { List } from './list/List';
 import styles from './TaskList.module.css';
 import { PageContainer, SearchInput } from 'src/components/index';
-import { RootState } from 'src/store';
+import { ReduxStore } from 'types/redux/redux';
 
 export function TaskList() {
   const [searchText, setSearchText] = useState('');
-  const data = useSelector((state: RootState) => {
+  const data = useSelector((state: ReduxStore) => {
     return state;
   });
 
@@ -25,7 +25,7 @@ export function TaskList() {
           />
         </form>
       </header>
-      <List tasks={data.tasks.taskList} />
+      <List tasks={data.tasksList.tasksData} />
       <Link to="/TaskForm" className={styles.addButton}>
         Add Task
       </Link>

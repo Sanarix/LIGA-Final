@@ -5,7 +5,7 @@ import tasksListReducer from './slices/tasksList/tasksList.slice';
 
 export const store = configureStore({
   reducer: {
-    tasks: tasksListReducer,
+    tasksList: tasksListReducer,
   },
   // middleware: [logger], ругается на logger
   middleware: [thunk],

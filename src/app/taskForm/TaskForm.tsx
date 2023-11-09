@@ -9,7 +9,7 @@ import { RootState } from 'src/store';
 export function TaskForm() {
   const { id } = useParams();
   const editedTask = useSelector((state: RootState) => {
-    return state.tasks.taskList.find((task) => task.id === Number(id));
+    return state.tasksList.tasksData.find((task) => task.id === Number(id));
   });
   const dispatch = useDispatch();
   const [taskName, setTaskName] = useState(editedTask?.name || '');
