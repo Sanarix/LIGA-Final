@@ -22,7 +22,11 @@ export function List({ tasksArr }: ListProps) {
           return (
             <Task key={task.id}>
               <div className={styles.checkbox}>
-                <Checkbox label="" containerClassName={styles['checkbox-container']} />
+                <Checkbox
+                  label=""
+                  containerClassName={styles['checkbox-container']}
+                  checked={task.isImportant ? true : false}
+                />
               </div>
               <div className={styles.task}>
                 <h2>{task.name}</h2>
@@ -34,8 +38,8 @@ export function List({ tasksArr }: ListProps) {
                 </Link>
                 <button
                   className={styles.deleteButton}
-                  onClick={() => {
-                    dispatch(removeTaskById(mapDeleteTask(task.id)));
+                  onClick={async () => {
+                    await dispatch(removeTaskById(mapDeleteTask(task.id)));
                   }}>
                   Delete
                 </button>

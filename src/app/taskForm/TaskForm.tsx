@@ -4,12 +4,12 @@ import { useState } from 'react';
 import style from './TaskForm.module.css';
 import { Checkbox, PageContainer, TextField } from 'src/components/index';
 import { addTask, changeTask } from 'src/slices/tasksList/tasksList.slice';
-import { RootState } from 'src/store';
+import { ReduxStore } from 'types/redux/redux';
 
 export function TaskForm() {
   const { id } = useParams();
-  const editedTask = useSelector((state: RootState) => {
-    return state.tasksList.tasksData.find((task) => task.id === id);
+  const editedTask = useSelector((state: ReduxStore) => {
+    return state.tasksList.tasksData.find((task) => task.id === Number(id));
   });
   const dispatch = useDispatch();
   const [taskName, setTaskName] = useState(editedTask?.name || '');
