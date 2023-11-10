@@ -1,28 +1,40 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { List } from './list/List';
 import styles from './TaskList.module.css';
 import { PageContainer, SearchInput } from 'src/components/index';
 import { ReduxStore } from 'types/redux/redux';
-import { BtnGroup } from 'components/BtnGroup/BtnGroup';
 import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
+import { QueryButton } from 'components/QueryButton/QueryButton';
+import { ACTIVE_TASKS, ALL_TASKS, DONE_TASKS, IMPORTANT_TASKS } from 'constants/searchTypes';
+import { useSearchSlice } from 'src/slices/search/search.hooks';
 
 export function TaskList() {
   const [searchText, setSearchText] = useState('');
-  const { dispatch, fetchTasks, fetchTasksByParams } = useTasksSlice();
+  const [searchQuery, setSearchQuery] = useState('');
+  const { dispatch, fetchTasks, fetchTasksByName } = useTasksSlice();
   const data = useSelector((state: ReduxStore) => {
     return state;
   });
+  const { changeSearch, searchType, searchDispatch } = useSearchSlice();
+  // const searchType = useSelector((state: ReduxStore) => {
+  //   return state.search.searchType;
+  // });
 
   function searchFunc(e: FormEvent) {
     e.preventDefault();
+
     if (searchText.trim().length > 0) {
-      dispatch(fetchTasksByParams({ taskName: searchText }));
+      dispatch(fetchTasksByName({ taskName: searchText, searchQuery: searchType }));
     } else {
       dispatch(fetchTasks());
     }
   }
+
+  useEffect(() => {
+    console.log(searchType);
+  }, [searchType]);
 
   return (
     <PageContainer className="task-list">
@@ -34,13 +46,39 @@ export function TaskList() {
               setSearchText(text);
             }}
             value={searchText}
+            onReset={() => {
+              if (searchText.length > 0) {
+                setSearchText('');
+                dispatch(fetchTasks());
+              }
+            }}
           />
-          <BtnGroup classComponent="gff">
-            <button>All</button>
-            <button>Active</button>
-            <button>Done</button>
-            <button>Important</button>
-          </BtnGroup>
+          <div className="btn-group">
+            <QueryButton
+              buttonText="All"
+              onClick={() => {
+                searchDispatch(changeSearch(ALL_TASKS));
+              }}
+            />
+            <QueryButton
+              buttonText="Active"
+              onClick={() => {
+                searchDispatch(changeSearch(ACTIVE_TASKS));
+              }}
+            />
+            <QueryButton
+              buttonText="Done"
+              onClick={() => {
+                searchDispatch(changeSearch(DONE_TASKS));
+              }}
+            />
+            <QueryButton
+              buttonText="Important"
+              onClick={() => {
+                searchDispatch(changeSearch(IMPORTANT_TASKS));
+              }}
+            />
+          </div>
           <button className="submit-btn">Find</button>
         </form>
       </header>

@@ -24,6 +24,14 @@ export const tasksListSlice = createSlice({
         return task;
       });
     },
+    checkTask: (state, action) => {
+      state.tasksData = state.tasksData.map((task) => {
+        if (task.id === Number(action.payload.taskId)) {
+          return { ...task, isCompleted: true };
+        }
+        return task;
+      });
+    },
     deleteTask: (state, action) => {
       if (action.payload) {
         state.tasksData = state.tasksData.filter((task) => task.id !== Number(action.payload.taskId));
@@ -38,5 +46,5 @@ export const tasksListSlice = createSlice({
   },
 });
 
-export const { addTask, changeTask, deleteTask, setLoader, unsetLoader, setTasks } = tasksListSlice.actions;
+export const { addTask, changeTask, deleteTask, setLoader, unsetLoader, setTasks, checkTask } = tasksListSlice.actions;
 export default tasksListSlice.reducer;

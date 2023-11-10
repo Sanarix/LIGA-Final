@@ -6,4 +6,5 @@ export interface ReduxStore {
     isLoading: boolean;
   };
   errors: { value: string | null };
+  search: { searchType: 'all' | 'active' | 'done' | 'important' };
 }

@@ -9,11 +9,15 @@ import { Loader } from 'components/Loader';
 import { mapDeleteTask } from 'utils/mapDeleteTask';
 
 export function List({ tasksArr }: ListProps) {
-  const { isLoading, dispatch, fetchTasks, removeTaskById } = useTasksSlice();
+  const { isLoading, tasks, dispatch, fetchTasks, checkTaskById, removeTaskById } = useTasksSlice();
 
   useEffect(() => {
     dispatch(fetchTasks());
   }, []);
+
+  useEffect(() => {
+    console.log(tasks);
+  }, [tasks]);
 
   return (
     <div className="tasks-wrapper">
@@ -27,8 +31,8 @@ export function List({ tasksArr }: ListProps) {
                   containerClassName={styles['checkbox-container']}
                   checked={task.isCompleted ? true : false}
                   disabled={task.isCompleted ? true : false}
-                  onChange={() => {
-                    console.log('TODO добавить запрос');
+                  onChange={async () => {
+                    await dispatch(checkTaskById(String(task.id)));
                   }}
                 />
                 {task.isImportant ? <p>important</p> : <></>}
@@ -53,6 +57,7 @@ export function List({ tasksArr }: ListProps) {
           );
         })}
       </Loader>
+      {tasksArr.length === 0 && <h3>Not found</h3>}
     </div>
   );
 }
