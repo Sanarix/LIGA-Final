@@ -1,3 +1,4 @@
 import axios from 'axios';
+import { BASE_URL } from 'constants/baseUrl';
 
-export const getTasksApi = () => axios.get(`http://37.220.80.108/tasks`);
+export const getTasksApi = () => axios.get(BASE_URL);

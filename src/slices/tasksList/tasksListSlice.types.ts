@@ -1,6 +1,6 @@
-import type { TaskLocal } from 'src/types/task/TaskLocal.types';
+import type { FetchedTasks, Task } from 'src/types/task/Task.types';
 
 export type TasksState = {
-  tasksData: TaskLocal[];
+  tasksData: Required<FetchedTasks>;
   isLoading: boolean;
 };

@@ -1,4 +1,4 @@
-import type { TaskLocal } from '../../../types/task/TaskLocal.types';
+import type { FetchedTasks } from 'types/task/Task.types';
 export type ListProps = {
-  tasksArr: TaskLocal[];
+  tasksArr: FetchedTasks;
 };

@@ -3,14 +3,14 @@ import { AxiosResponse } from 'axios';
 import { setLoader, unsetLoader, setTasks, deleteTask } from 'src/slices/tasksList/tasksList.slice';
 import { setError } from 'src/slices/errors/error.slice';
 import { getTasksApi } from 'api/getTasksApi';
-import { Task } from 'types/task/Task.types';
+import { DeletedId, FetchedTasks } from 'types/task/Task.types';
 import { removeTasksApi } from 'api/removeTasksApi';
 
 export const fetchTasks = () => async (dispatch: Dispatch) => {
   try {
     dispatch(setLoader());
 
-    const axiosResponse: AxiosResponse<Task[]> = await getTasksApi();
+    const axiosResponse: AxiosResponse<FetchedTasks> = await getTasksApi();
     if (Array.isArray(axiosResponse.data)) {
       dispatch(setTasks({ tasks: axiosResponse.data }));
     } else {
@@ -24,11 +24,12 @@ export const fetchTasks = () => async (dispatch: Dispatch) => {
   }
 };
 
-export const removeTaskById = (id: number) => async (dispatch: Dispatch) => {
+export const removeTaskById = (taskId: DeletedId) => async (dispatch: Dispatch) => {
   try {
-    removeTasksApi(id);
-    dispatch(deleteTask(id));
+    removeTasksApi(taskId);
+    dispatch(deleteTask(taskId));
   } catch (e) {
     console.log(e);
+    throw new Error('Возникла ошибка при удалении');
   }
 };

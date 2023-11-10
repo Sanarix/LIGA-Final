@@ -1,7 +1,28 @@
-export type Task = {
-  name: string;
-  info: string;
-  isImportant: boolean;
-  isCompleted?: boolean;
-  id: number;
-};
+import { paths } from 'types/api/api';
+
+//TODO удали если не упало
+// export type Task = {
+//   name: string;
+//   info: string;
+//   isImportant: boolean;
+//   isCompleted?: boolean;
+//   id: number;
+// };
+
+//Для отправки get запроса
+export type Task = Required<paths['/tasks']['get']>['parameters']['query'];
+
+//это для отправки get запроса с id
+export type TaskById = Required<paths['/tasks/{taskId}']['get']>['parameters']['path'];
+
+//это для отправки post запроса
+export type AddTask = Required<paths['/tasks']['post']>['requestBody']['content'];
+
+//'это для отправки patch  запроса
+export type ChangeTask = Required<paths['/tasks/{taskId}']['patch']>['requestBody']['content']['application/json'];
+
+//это для отпраки delete запроса
+export type DeletedId = Required<paths['/tasks/{taskId}']['delete']>['parameters']['path'];
+
+//это ответ получаемый на запрос get
+export type FetchedTasks = Required<paths['/tasks']['get']['responses']['200']['content']>['application/json'];

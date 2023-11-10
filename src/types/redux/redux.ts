@@ -1,8 +1,8 @@
-import { TaskLocal } from 'types/task/TaskLocal.types';
+import { FetchedTasks } from 'types/task/Task.types';
 
 export interface ReduxStore {
   tasksList: {
-    tasksData: TaskLocal[];
+    tasksData: FetchedTasks;
     isLoading: boolean;
   };
   errors: { value: string | null };
