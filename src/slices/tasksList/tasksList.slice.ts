@@ -26,7 +26,7 @@ export const tasksListSlice = createSlice({
     },
     deleteTask: (state, action) => {
       if (action.payload) {
-        state.tasksData = state.tasksData.filter((task) => task.id !== action.payload);
+        state.tasksData = state.tasksData.filter((task) => task.id !== Number(action.payload.taskId));
       }
     },
     setLoader: (state) => {

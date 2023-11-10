@@ -1,14 +1,5 @@
 import { paths } from 'types/api/api';
 
-//TODO удали если не упало
-// export type Task = {
-//   name: string;
-//   info: string;
-//   isImportant: boolean;
-//   isCompleted?: boolean;
-//   id: number;
-// };
-
 //Для отправки get запроса
 export type Task = Required<paths['/tasks']['get']>['parameters']['query'];
 
