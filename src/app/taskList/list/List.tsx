@@ -9,7 +9,7 @@ import { Loader } from 'components/Loader';
 import { mapDeleteTask } from 'utils/mapDeleteTask';
 
 export function List({ tasksArr }: ListProps) {
-  const { isLoading, tasks, dispatch, fetchTasks, removeTaskById } = useTasksSlice();
+  const { isLoading, dispatch, fetchTasks, removeTaskById } = useTasksSlice();
 
   useEffect(() => {
     dispatch(fetchTasks());
@@ -18,15 +18,20 @@ export function List({ tasksArr }: ListProps) {
   return (
     <div className="tasks-wrapper">
       <Loader isLoading={isLoading}>
-        {tasksArr.map((task, i) => {
+        {tasksArr.map((task) => {
           return (
             <Task key={task.id}>
               <div className={styles.checkbox}>
                 <Checkbox
                   label=""
                   containerClassName={styles['checkbox-container']}
-                  checked={task.isImportant ? true : false}
+                  checked={task.isCompleted ? true : false}
+                  disabled={task.isCompleted ? true : false}
+                  onChange={() => {
+                    console.log('TODO добавить запрос');
+                  }}
                 />
+                {task.isImportant ? <p>important</p> : <></>}
               </div>
               <div className={styles.task}>
                 <h2>{task.name}</h2>

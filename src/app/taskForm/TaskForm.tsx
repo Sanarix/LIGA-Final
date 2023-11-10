@@ -16,11 +16,12 @@ export function TaskForm() {
   const [taskDescr, setTaskDescr] = useState(editedTask?.info || '');
   const [isImportant, setIsImportant] = useState(editedTask?.isImportant || false);
 
-  function clearForm() {
-    setTaskName('');
-    setTaskDescr('');
-    setIsImportant(false);
-  }
+  //TODO вспомнить для чего делал
+  // function clearForm() {
+  //   setTaskName('');
+  //   setTaskDescr('');
+  //   setIsImportant(false);
+  // }
 
   function clickHandler(e: React.FormEvent) {
     e.preventDefault();
@@ -35,7 +36,7 @@ export function TaskForm() {
       );
     } else {
       dispatch(addTask({ name: taskName, info: taskDescr, isImportant: isImportant }));
-      clearForm();
+      // clearForm();
     }
   }
 
