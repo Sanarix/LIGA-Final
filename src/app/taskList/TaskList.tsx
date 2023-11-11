@@ -9,6 +9,7 @@ import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
 import { QueryButton } from 'components/QueryButton/QueryButton';
 import { ACTIVE_TASKS, ALL_TASKS, DONE_TASKS, IMPORTANT_TASKS } from 'constants/searchTypes';
 import { useSearchSlice } from 'src/slices/search/search.hooks';
+import { MemoButtonGroup } from 'components/ButtonGroup/ButtonGroup';
 
 export function TaskList() {
   const [searchText, setSearchText] = useState('');
@@ -17,7 +18,7 @@ export function TaskList() {
   const data = useSelector((state: ReduxStore) => {
     return state;
   });
-  const { changeSearch, searchType, searchDispatch } = useSearchSlice();
+  const { searchType } = useSearchSlice();
 
   function searchFunc(e: FormEvent) {
     e.preventDefault();
@@ -46,32 +47,7 @@ export function TaskList() {
               }
             }}
           />
-          <div className="btn-group">
-            <QueryButton
-              buttonText="All"
-              onClick={() => {
-                searchDispatch(changeSearch(ALL_TASKS));
-              }}
-            />
-            <QueryButton
-              buttonText="Active"
-              onClick={() => {
-                searchDispatch(changeSearch(ACTIVE_TASKS));
-              }}
-            />
-            <QueryButton
-              buttonText="Done"
-              onClick={() => {
-                searchDispatch(changeSearch(DONE_TASKS));
-              }}
-            />
-            <QueryButton
-              buttonText="Important"
-              onClick={() => {
-                searchDispatch(changeSearch(IMPORTANT_TASKS));
-              }}
-            />
-          </div>
+          <MemoButtonGroup buttons={[ALL_TASKS, ACTIVE_TASKS, DONE_TASKS, IMPORTANT_TASKS]} />
           <button className="submit-btn">Find</button>
         </form>
       </header>
