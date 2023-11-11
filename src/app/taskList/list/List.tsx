@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useEffect, memo } from 'react';
 import styles from './List.module.css';
+import { ListProps } from './List.types';
 import iconDelete from 'assets/icons/icon-delete.svg';
 import iconEdit from 'assets/icons/icon-edit.svg';
 import { Task } from 'src/app/taskList/task/Task';
@@ -9,7 +10,7 @@ import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
 import { Loader } from 'components/Loader';
 import { mapDeleteTask } from 'utils/mapDeleteTask';
 
-function List() {
+function List({ currentTasks }: ListProps) {
   const { isLoading, tasks, dispatch, fetchTasks, checkTaskById, removeTaskById } = useTasksSlice();
 
   // useEffect(() => {
@@ -23,7 +24,7 @@ function List() {
   return (
     <div className="tasks-wrapper">
       <Loader isLoading={isLoading}>
-        {tasks.map((task) => {
+        {currentTasks.map((task) => {
           return (
             <Task key={task.id}>
               <div className={styles.checkbox}>
@@ -62,7 +63,7 @@ function List() {
           );
         })}
       </Loader>
-      {tasks.length === 0 && <h3>Not found</h3>}
+      {currentTasks.length === 0 && <h3>Not found</h3>}
     </div>
   );
 }
