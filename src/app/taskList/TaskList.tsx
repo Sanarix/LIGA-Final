@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, memo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MemoList } from './list/List';
 import styles from './TaskList.module.css';
@@ -7,7 +7,7 @@ import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
 import { ACTIVE_TASKS, ALL_TASKS, DONE_TASKS, IMPORTANT_TASKS } from 'constants/searchTypes';
 import { useSearchSlice } from 'src/slices/search/search.hooks';
 
-export function TaskList() {
+function TaskList() {
   const [searchText, setSearchText] = useState('');
   const { dispatch, fetchTasks, fetchTasksByName } = useTasksSlice();
   const { searchType } = useSearchSlice();
@@ -21,6 +21,10 @@ export function TaskList() {
       dispatch(fetchTasks());
     }
   }
+
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, []);
 
   return (
     <PageContainer className="task-list">
@@ -50,3 +54,5 @@ export function TaskList() {
     </PageContainer>
   );
 }
+
+export const MemoTaskList = memo(TaskList);

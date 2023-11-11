@@ -10,7 +10,8 @@ export type TaskById = Required<paths['/tasks/{taskId}']['get']>['parameters']['
 export type AddTaskType = Required<paths['/tasks']['post']>['requestBody']['content']['application/json'];
 
 //'это для отправки patch  запроса
-export type ChangeTask = Required<paths['/tasks/{taskId}']['patch']>['requestBody']['content']['application/json'];
+export type ChangeTaskType =
+  | Required<paths['/tasks/{taskId}']['patch']>['requestBody']['content']['application/json'] & { id: string };
 
 //это для отпраки delete запроса
 export type DeletedId = Required<paths['/tasks/{taskId}']['delete']>['parameters']['path'];

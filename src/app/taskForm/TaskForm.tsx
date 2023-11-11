@@ -16,7 +16,7 @@ function TaskForm() {
   const [taskDescr, setTaskDescr] = useState(editedTask?.info || '');
   const [isImportant, setIsImportant] = useState(editedTask?.isImportant || false);
 
-  const { addTask, dispatch } = useTasksSlice();
+  const { addTask, changeDataTask, dispatch } = useTasksSlice();
 
   const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ function TaskForm() {
     e.preventDefault();
     if (id) {
       dispatch(
-        changeTask({
+        changeDataTask({
           id: id,
           name: taskName,
           info: taskDescr,

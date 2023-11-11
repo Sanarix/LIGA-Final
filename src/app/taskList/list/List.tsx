@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { useEffect, memo } from 'react';
-import { useSelector } from 'react-redux';
 import styles from './List.module.css';
 import iconDelete from 'assets/icons/icon-delete.svg';
 import iconEdit from 'assets/icons/icon-edit.svg';
@@ -9,18 +8,13 @@ import { Checkbox } from 'components/Checkbox';
 import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
 import { Loader } from 'components/Loader';
 import { mapDeleteTask } from 'utils/mapDeleteTask';
-import type { ReduxStore } from 'types/redux/redux';
 
 function List() {
   const { isLoading, tasks, dispatch, fetchTasks, checkTaskById, removeTaskById } = useTasksSlice();
 
-  const tasksArr = useSelector((state: ReduxStore) => {
-    return state.tasksList.tasksData;
-  });
-
-  useEffect(() => {
-    dispatch(fetchTasks());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchTasks());
+  // }, []);
 
   useEffect(() => {
     console.log(tasks);
@@ -29,7 +23,7 @@ function List() {
   return (
     <div className="tasks-wrapper">
       <Loader isLoading={isLoading}>
-        {tasksArr.map((task) => {
+        {tasks.map((task) => {
           return (
             <Task key={task.id}>
               <div className={styles.checkbox}>
@@ -68,7 +62,7 @@ function List() {
           );
         })}
       </Loader>
-      {tasksArr.length === 0 && <h3>Not found</h3>}
+      {tasks.length === 0 && <h3>Not found</h3>}
     </div>
   );
 }

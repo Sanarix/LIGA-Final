@@ -6,15 +6,17 @@ import {
   setTasks,
   checkTask,
   pushTask,
+  changeTask,
   deleteTask,
 } from 'src/slices/tasksList/tasksList.slice';
 import { setError } from 'src/slices/errors/error.slice';
 import { getTasksApi } from 'api/getTasksApi';
-import { AddTaskType, DeletedId, FetchedTasks } from 'types/task/Task.types';
+import type { AddTaskType, ChangeTaskType, DeletedId, FetchedTasks } from 'types/task/Task.types';
 import { removeTasksApi } from 'api/removeTasksApi';
 import { getTasksByNameApi } from 'api/getTasksByNameApi';
 import { checkTaskByIdApi } from 'api/checkedTaskByIdApi';
 import { addTaskApi } from 'api/addTaskApi';
+import { changeTaskApi } from 'api/changeTaskApi';
 
 export const fetchTasks = () => async (dispatch: Dispatch) => {
   try {
@@ -68,6 +70,20 @@ export const addTask = (taskData: AddTaskType) => async (dispatch: Dispatch) => 
     const axiosResponse: AxiosResponse<FetchedTasks> = await addTaskApi(taskData);
     if (axiosResponse.data) {
       dispatch(pushTask(axiosResponse.data));
+    } else {
+      throw new Error('Сервер не отвечает');
+    }
+  } catch (e) {
+    console.log(e);
+    throw new Error('Произошла ошибка');
+  }
+};
+
+export const changeDataTask = (taskData: ChangeTaskType) => async (dispatch: Dispatch) => {
+  try {
+    const axiosResponse: AxiosResponse<FetchedTasks> = await changeTaskApi(taskData);
+    if (axiosResponse.data) {
+      dispatch(changeTask(axiosResponse.data));
     } else {
       throw new Error('Сервер не отвечает');
     }
