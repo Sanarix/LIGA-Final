@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { TaskList, TaskForm } from 'src/app/index';
+import { TaskList, MemoTaskForm } from 'src/app/index';
 import { store } from 'src/store';
 
 export default function App() {
@@ -9,8 +9,8 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<TaskList />} />
-          <Route path="/TaskForm" element={<TaskForm />} />
-          <Route path="/TaskForm/:id" element={<TaskForm />} />
+          <Route path="/TaskForm" element={<MemoTaskForm />} />
+          <Route path="/TaskForm/:id" element={<MemoTaskForm />} />
         </Routes>
       </BrowserRouter>
     </Provider>

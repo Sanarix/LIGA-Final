@@ -1,13 +1,13 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import style from './TaskForm.module.css';
 import { Checkbox, PageContainer, TextField } from 'src/components/index';
 import { changeTask } from 'src/slices/tasksList/tasksList.slice';
 import { ReduxStore } from 'types/redux/redux';
 import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
 
-export function TaskForm() {
+function TaskForm() {
   const { id } = useParams();
   const editedTask = useSelector((state: ReduxStore) => {
     return state.tasksList.tasksData.find((task) => task.id === Number(id));
@@ -34,6 +34,7 @@ export function TaskForm() {
     } else {
       dispatch(addTask({ name: taskName, info: taskDescr, isImportant: isImportant }));
     }
+    navigate('/', { replace: true });
   }
 
   return (
@@ -65,3 +66,5 @@ export function TaskForm() {
     </PageContainer>
   );
 }
+
+export const MemoTaskForm = memo(TaskForm);
