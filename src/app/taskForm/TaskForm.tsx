@@ -1,27 +1,24 @@
-import { useParams, Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import style from './TaskForm.module.css';
 import { Checkbox, PageContainer, TextField } from 'src/components/index';
-import { addTask, changeTask } from 'src/slices/tasksList/tasksList.slice';
+import { changeTask } from 'src/slices/tasksList/tasksList.slice';
 import { ReduxStore } from 'types/redux/redux';
+import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
 
 export function TaskForm() {
   const { id } = useParams();
   const editedTask = useSelector((state: ReduxStore) => {
     return state.tasksList.tasksData.find((task) => task.id === Number(id));
   });
-  const dispatch = useDispatch();
   const [taskName, setTaskName] = useState(editedTask?.name || '');
   const [taskDescr, setTaskDescr] = useState(editedTask?.info || '');
   const [isImportant, setIsImportant] = useState(editedTask?.isImportant || false);
 
-  //TODO вспомнить для чего делал
-  // function clearForm() {
-  //   setTaskName('');
-  //   setTaskDescr('');
-  //   setIsImportant(false);
-  // }
+  const { addTask, dispatch } = useTasksSlice();
+
+  const navigate = useNavigate();
 
   function clickHandler(e: React.FormEvent) {
     e.preventDefault();
@@ -36,7 +33,6 @@ export function TaskForm() {
       );
     } else {
       dispatch(addTask({ name: taskName, info: taskDescr, isImportant: isImportant }));
-      // clearForm();
     }
   }
 
@@ -64,9 +60,7 @@ export function TaskForm() {
             setIsImportant((prev) => !prev);
           }}
         />
-        <Link to="/" className={style['add-button']} replace>
-          {id ? 'EDIT TASK' : 'ADD TASK'}
-        </Link>
+        <button className={style['add-button']}>{id ? 'EDIT TASK' : 'ADD TASK'}</button>
       </form>
     </PageContainer>
   );

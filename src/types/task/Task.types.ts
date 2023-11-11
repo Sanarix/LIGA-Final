@@ -7,7 +7,7 @@ export type Task = Required<paths['/tasks']['get']>['parameters']['query'];
 export type TaskById = Required<paths['/tasks/{taskId}']['get']>['parameters']['path'];
 
 //это для отправки post запроса
-export type AddTask = Required<paths['/tasks']['post']>['requestBody']['content'];
+export type AddTaskType = Required<paths['/tasks']['post']>['requestBody']['content']['application/json'];
 
 //'это для отправки patch  запроса
 export type ChangeTask = Required<paths['/tasks/{taskId}']['patch']>['requestBody']['content']['application/json'];

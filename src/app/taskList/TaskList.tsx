@@ -3,17 +3,14 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { MemoList } from './list/List';
 import styles from './TaskList.module.css';
-import { PageContainer, SearchInput } from 'src/components/index';
+import { PageContainer, SearchInput, MemoButtonGroup } from 'src/components/index';
 import { ReduxStore } from 'types/redux/redux';
 import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
-import { QueryButton } from 'components/QueryButton/QueryButton';
 import { ACTIVE_TASKS, ALL_TASKS, DONE_TASKS, IMPORTANT_TASKS } from 'constants/searchTypes';
 import { useSearchSlice } from 'src/slices/search/search.hooks';
-import { MemoButtonGroup } from 'components/ButtonGroup/ButtonGroup';
 
 export function TaskList() {
   const [searchText, setSearchText] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
   const { dispatch, fetchTasks, fetchTasksByName } = useTasksSlice();
   const data = useSelector((state: ReduxStore) => {
     return state;

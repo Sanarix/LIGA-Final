@@ -1,12 +1,20 @@
 import { Dispatch } from 'redux';
 import { AxiosResponse } from 'axios';
-import { setLoader, unsetLoader, setTasks, checkTask, deleteTask } from 'src/slices/tasksList/tasksList.slice';
+import {
+  setLoader,
+  unsetLoader,
+  setTasks,
+  checkTask,
+  pushTask,
+  deleteTask,
+} from 'src/slices/tasksList/tasksList.slice';
 import { setError } from 'src/slices/errors/error.slice';
 import { getTasksApi } from 'api/getTasksApi';
-import { AddTask, DeletedId, FetchedTasks } from 'types/task/Task.types';
+import { AddTaskType, DeletedId, FetchedTasks } from 'types/task/Task.types';
 import { removeTasksApi } from 'api/removeTasksApi';
 import { getTasksByNameApi } from 'api/getTasksByNameApi';
 import { checkTaskByIdApi } from 'api/checkedTaskByIdApi';
+import { addTaskApi } from 'api/addTaskApi';
 
 export const fetchTasks = () => async (dispatch: Dispatch) => {
   try {
@@ -55,9 +63,14 @@ export const checkTaskById = (taskId: string) => async (dispatch: Dispatch) => {
   }
 };
 
-export const addTask = (taskData: AddTask) => async (dispatch: Dispatch) => {
+export const addTask = (taskData: AddTaskType) => async (dispatch: Dispatch) => {
   try {
-    //TODO запрос
+    const axiosResponse: AxiosResponse<FetchedTasks> = await addTaskApi(taskData);
+    if (axiosResponse.data) {
+      dispatch(pushTask(axiosResponse.data));
+    } else {
+      throw new Error('Сервер не отвечает');
+    }
   } catch (e) {
     console.log(e);
     throw new Error('Произошла ошибка');

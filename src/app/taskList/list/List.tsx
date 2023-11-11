@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { useEffect, memo } from 'react';
 import type { ListProps } from './List.types';
 import styles from './List.module.css';
+import iconDelete from 'assets/icons/icon-delete.svg';
+import iconEdit from 'assets/icons/icon-edit.svg';
 import { Task } from 'src/app/taskList/task/Task';
 import { Checkbox } from 'components/Checkbox';
 import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
@@ -43,14 +45,18 @@ function List({ tasksArr }: ListProps) {
               </div>
               <div className={styles.buttons}>
                 <Link to={`/TaskForm/${task.id}`} className={styles.button}>
-                  Edit
+                  <svg className={styles.icon} aria-hidden="true">
+                    <use xlinkHref={`${iconEdit}`}></use>
+                  </svg>
                 </Link>
                 <button
                   className={styles.deleteButton}
                   onClick={async () => {
                     await dispatch(removeTaskById(mapDeleteTask(task.id)));
                   }}>
-                  Delete
+                  <svg className={styles.icon} aria-hidden="true">
+                    <use xlinkHref={`${iconDelete}`}></use>
+                  </svg>
                 </button>
               </div>
             </Task>

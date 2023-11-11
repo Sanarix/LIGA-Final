@@ -13,7 +13,7 @@ export const tasksListSlice = createSlice({
     setTasks: (state, action) => {
       state.tasksData = action.payload.tasks;
     },
-    addTask: (state, action) => {
+    pushTask: (state, action) => {
       state.tasksData.push(action.payload);
     },
     changeTask: (state, action) => {
@@ -46,5 +46,5 @@ export const tasksListSlice = createSlice({
   },
 });
 
-export const { addTask, changeTask, deleteTask, setLoader, unsetLoader, setTasks, checkTask } = tasksListSlice.actions;
+export const { pushTask, changeTask, deleteTask, setLoader, unsetLoader, setTasks, checkTask } = tasksListSlice.actions;
 export default tasksListSlice.reducer;

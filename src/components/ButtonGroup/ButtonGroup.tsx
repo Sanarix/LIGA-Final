@@ -16,7 +16,6 @@ function ButtonGroup({ buttons }: ButtonGroupProps) {
               searchDispatch(changeSearch(buttonText));
             }}
             className={searchType === buttonText ? `${styles.customButton} ${styles.active}` : styles.customButton}>
-            {' '}
             {buttonText}
           </button>
         </>
