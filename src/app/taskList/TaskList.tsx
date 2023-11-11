@@ -1,4 +1,4 @@
-import { FormEvent, useState, useEffect } from 'react';
+import { FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { List } from './list/List';
@@ -18,9 +18,6 @@ export function TaskList() {
     return state;
   });
   const { changeSearch, searchType, searchDispatch } = useSearchSlice();
-  // const searchType = useSelector((state: ReduxStore) => {
-  //   return state.search.searchType;
-  // });
 
   function searchFunc(e: FormEvent) {
     e.preventDefault();
@@ -31,10 +28,6 @@ export function TaskList() {
       dispatch(fetchTasks());
     }
   }
-
-  useEffect(() => {
-    console.log(searchType);
-  }, [searchType]);
 
   return (
     <PageContainer className="task-list">

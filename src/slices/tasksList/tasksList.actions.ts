@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios';
 import { setLoader, unsetLoader, setTasks, checkTask, deleteTask } from 'src/slices/tasksList/tasksList.slice';
 import { setError } from 'src/slices/errors/error.slice';
 import { getTasksApi } from 'api/getTasksApi';
-import { DeletedId, FetchedTasks } from 'types/task/Task.types';
+import { AddTask, DeletedId, FetchedTasks } from 'types/task/Task.types';
 import { removeTasksApi } from 'api/removeTasksApi';
 import { getTasksByNameApi } from 'api/getTasksByNameApi';
 import { checkTaskByIdApi } from 'api/checkedTaskByIdApi';
@@ -11,7 +11,6 @@ import { checkTaskByIdApi } from 'api/checkedTaskByIdApi';
 export const fetchTasks = () => async (dispatch: Dispatch) => {
   try {
     dispatch(setLoader());
-
     const axiosResponse: AxiosResponse<FetchedTasks> = await getTasksApi();
     if (Array.isArray(axiosResponse.data)) {
       dispatch(setTasks({ tasks: axiosResponse.data }));
@@ -34,7 +33,7 @@ export const fetchTasksByName =
 
       const axiosResponse: AxiosResponse<FetchedTasks> = await getTasksByNameApi({ taskName, searchQuery });
       if (Array.isArray(axiosResponse.data)) {
-        dispatch(setTasks({ tasks: axiosResponse.data }));
+        dispatch(setTasks({ tasks: axiosResponse.data, filter: searchQuery }));
       } else {
         throw new Error();
       }
@@ -50,6 +49,15 @@ export const checkTaskById = (taskId: string) => async (dispatch: Dispatch) => {
   try {
     checkTaskByIdApi({ taskId });
     dispatch(checkTask(taskId));
+  } catch (e) {
+    console.log(e);
+    throw new Error('Произошла ошибка');
+  }
+};
+
+export const addTask = (taskData: AddTask) => async (dispatch: Dispatch) => {
+  try {
+    //TODO запрос
   } catch (e) {
     console.log(e);
     throw new Error('Произошла ошибка');
