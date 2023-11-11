@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, memo } from 'react';
 import type { ListProps } from './List.types';
 import styles from './List.module.css';
 import { Task } from 'src/app/taskList/task/Task';
@@ -8,7 +8,7 @@ import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
 import { Loader } from 'components/Loader';
 import { mapDeleteTask } from 'utils/mapDeleteTask';
 
-export function List({ tasksArr }: ListProps) {
+function List({ tasksArr }: ListProps) {
   const { isLoading, tasks, dispatch, fetchTasks, checkTaskById, removeTaskById } = useTasksSlice();
 
   useEffect(() => {
@@ -61,3 +61,5 @@ export function List({ tasksArr }: ListProps) {
     </div>
   );
 }
+
+export const MemoList = memo(List);

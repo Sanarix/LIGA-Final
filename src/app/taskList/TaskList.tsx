@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { List } from './list/List';
+import { MemoList } from './list/List';
 import styles from './TaskList.module.css';
 import { PageContainer, SearchInput } from 'src/components/index';
 import { ReduxStore } from 'types/redux/redux';
@@ -75,7 +75,7 @@ export function TaskList() {
           <button className="submit-btn">Find</button>
         </form>
       </header>
-      <List tasksArr={data.tasksList.tasksData} />
+      <MemoList tasksArr={data.tasksList.tasksData} />
       <Link to="/TaskForm" className={styles.addButton}>
         Add Task
       </Link>
