@@ -17,7 +17,9 @@ function List() {
   const lastTaskIndex = currentPage * tasksPerPage;
   const firstTaskIndex = lastTaskIndex - tasksPerPage;
   const currentTasks = tasks.slice(firstTaskIndex, lastTaskIndex);
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
   // useEffect(() => {
   //   dispatch(fetchTasks());
   // }, []);

@@ -5,7 +5,8 @@ import { getTotalPages, getPageNumbers } from 'utils/pagination';
 export function Pagination({ totalTasks, tasksPerPage, currentPage, paginate }: PaginationProps) {
   const totalPages = getTotalPages({ totalTasks, tasksPerPage });
   const maxPageVisible = 5;
-  const pageNumbers = getPaginationButtons(totalPages, maxPageVisible);
+  const pageNumbers = getPaginationButtons(totalPages, maxPageVisible, currentPage);
+
   const disabled = {
     start: () => pageNumbers[0] === 1,
     prev: () => currentPage === 1,
@@ -20,24 +21,36 @@ export function Pagination({ totalTasks, tasksPerPage, currentPage, paginate }: 
 
   return (
     <div className={styles.pagination}>
-      <button className={styles.button} disabled={disabled.start()}>
+      <button className={styles.button} disabled={disabled.start()} onClick={() => paginate(1)}>
         Start
       </button>
-      <button className={styles.button} disabled={disabled.prev()}>
+      <button
+        className={styles.button}
+        disabled={disabled.prev()}
+        onClick={() => {
+          paginate(currentPage - 1);
+        }}>
         Prev
       </button>
       {pageNumbers.map((number) => (
         <button
           className={currentPage === number ? `${styles.button} ${styles['button_active']}` : styles.button}
           key={number}
-          onClick={() => paginate(number)}>
+          onClick={() => {
+            paginate(number);
+          }}>
           {number}
         </button>
       ))}
-      <button className={styles.button} disabled={disabled.next()}>
+      <button
+        className={styles.button}
+        disabled={disabled.next()}
+        onClick={() => {
+          paginate(currentPage + 1);
+        }}>
         Next
       </button>
-      <button className={styles.button} disabled={disabled.end()}>
+      <button className={styles.button} disabled={disabled.end()} onClick={() => paginate(totalPages)}>
         End
       </button>
     </div>
