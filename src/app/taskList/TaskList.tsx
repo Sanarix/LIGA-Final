@@ -2,7 +2,6 @@ import { FormEvent, memo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MemoList } from './list/List';
 import styles from './TaskList.module.css';
-import Pagination from './pagination/Pagination';
 import { PageContainer, SearchInput, MemoButtonGroup } from 'src/components/index';
 import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
 import { ACTIVE_TASKS, ALL_TASKS, DONE_TASKS, IMPORTANT_TASKS } from 'constants/searchTypes';
@@ -12,12 +11,6 @@ function TaskList() {
   const [searchText, setSearchText] = useState('');
   const { dispatch, fetchTasks, tasks, fetchTasksByName } = useTasksSlice();
   const { searchType } = useSearchSlice();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [tasksPerPage] = useState(10);
-  const lastTaskIndex = currentPage * tasksPerPage;
-  const firstTaskIndex = lastTaskIndex - tasksPerPage;
-  const currentTasks = tasks.slice(firstTaskIndex, lastTaskIndex);
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   function searchFunc(e: FormEvent) {
     e.preventDefault();
@@ -25,6 +18,7 @@ function TaskList() {
     if (searchText.trim().length > 0) {
       dispatch(fetchTasksByName({ taskName: searchText, searchQuery: searchType }));
     } else {
+      //Todo проверять searchType
       dispatch(fetchTasks());
     }
   }
@@ -54,8 +48,7 @@ function TaskList() {
           <button className="submit-btn">Find</button>
         </form>
       </header>
-      <MemoList currentTasks={currentTasks} />
-      <Pagination tasksPerPage={tasksPerPage} totalTasks={tasks.length} paginate={paginate} />
+      <MemoList />
       <Link to="/TaskForm" className={styles.addButton}>
         Add Task
       </Link>

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { useEffect, memo } from 'react';
+import { useEffect, memo, useState } from 'react';
 import styles from './List.module.css';
-import { ListProps } from './List.types';
+import { Pagination } from 'app/index';
 import iconDelete from 'assets/icons/icon-delete.svg';
 import iconEdit from 'assets/icons/icon-edit.svg';
 import { Task } from 'src/app/taskList/task/Task';
@@ -10,9 +10,14 @@ import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
 import { Loader } from 'components/Loader';
 import { mapDeleteTask } from 'utils/mapDeleteTask';
 
-function List({ currentTasks }: ListProps) {
+function List() {
   const { isLoading, tasks, dispatch, fetchTasks, checkTaskById, removeTaskById } = useTasksSlice();
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [tasksPerPage] = useState(10);
+  const lastTaskIndex = currentPage * tasksPerPage;
+  const firstTaskIndex = lastTaskIndex - tasksPerPage;
+  const currentTasks = tasks.slice(firstTaskIndex, lastTaskIndex);
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
   // useEffect(() => {
   //   dispatch(fetchTasks());
   // }, []);
@@ -64,6 +69,16 @@ function List({ currentTasks }: ListProps) {
         })}
       </Loader>
       {currentTasks.length === 0 && <h3>Not found</h3>}
+      {tasks.length <= tasksPerPage ? (
+        <></>
+      ) : (
+        <Pagination
+          totalTasks={tasks.length}
+          tasksPerPage={tasksPerPage}
+          paginate={paginate}
+          currentPage={currentPage}
+        />
+      )}
     </div>
   );
 }

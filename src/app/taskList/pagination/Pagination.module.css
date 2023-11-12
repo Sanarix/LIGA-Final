@@ -1,0 +1,25 @@
+.pagination {
+  list-style: none;
+  display: flex;
+}
+
+.button {
+  border: 1px solid black;
+  padding: 1%;
+  cursor: pointer;
+  background-color: grey;
+}
+
+.button:hover {
+  background-color: silver;
+}
+
+
+.button_active {
+  background-color: black;
+  color: white;
+}
+
+.button_disabled {
+  background-color: silver;
+}
