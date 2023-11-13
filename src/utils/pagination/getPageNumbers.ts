@@ -13,7 +13,12 @@ export function getPageNumbers({ totalPages, maxPageVisible, currentPage }: Prop
   } else if (currentPage > half) {
     to = currentPage + half;
   }
-  const from = to - maxPageVisible;
+  let from = to - maxPageVisible;
+  if (from < 0) {
+    from = 0;
+    to = totalPages;
+    return Array.from({ length: totalPages }, (_, i) => i + 1 + from);
+  }
 
   return Array.from({ length: maxPageVisible }, (_, i) => i + 1 + from);
 }

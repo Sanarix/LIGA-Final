@@ -6,12 +6,14 @@ import tasksListReducer from './slices/tasksList/tasksList.slice';
 import { ReduxStore } from 'types/redux/redux';
 import errorsSlice from 'src/slices/errors/error.slice';
 import searchSlice from 'src/slices/search/search.slice';
+import paginationSlice from 'src/slices/pagination/pagination.slice';
 
 export const store = configureStore<ReduxStore>({
   reducer: {
     tasksList: tasksListReducer,
     errors: errorsSlice,
     search: searchSlice,
+    pagination: paginationSlice,
   },
   // middleware: [logger], ругается на logger
   middleware: [thunk],

@@ -9,17 +9,15 @@ import { Checkbox } from 'components/Checkbox';
 import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
 import { Loader } from 'components/Loader';
 import { mapDeleteTask } from 'utils/mapDeleteTask';
+import { usePaginationSlice } from 'src/slices/pagination/pagination.hooks';
 
 function List() {
   const { isLoading, tasks, dispatch, fetchTasks, checkTaskById, removeTaskById } = useTasksSlice();
-  const [currentPage, setCurrentPage] = useState(1);
+  const { currentPage } = usePaginationSlice();
   const [tasksPerPage] = useState(10);
   const lastTaskIndex = currentPage * tasksPerPage;
   const firstTaskIndex = lastTaskIndex - tasksPerPage;
   const currentTasks = tasks.slice(firstTaskIndex, lastTaskIndex);
-  const paginate = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
   // useEffect(() => {
   //   dispatch(fetchTasks());
   // }, []);
@@ -38,9 +36,10 @@ function List() {
                 <Checkbox
                   label=""
                   containerClassName={styles['checkbox-container']}
-                  checked={task.isCompleted ? true : false}
+                  checked={task.isCompleted ? true : undefined}
                   disabled={task.isCompleted ? true : false}
-                  onChange={async () => {
+                  onChange={async (e) => {
+                    e.currentTarget.disabled = true;
                     await dispatch(checkTaskById(String(task.id)));
                   }}
                 />
@@ -71,16 +70,7 @@ function List() {
         })}
       </Loader>
       {currentTasks.length === 0 && <h3>Not found</h3>}
-      {tasks.length <= tasksPerPage ? (
-        <></>
-      ) : (
-        <Pagination
-          totalTasks={tasks.length}
-          tasksPerPage={tasksPerPage}
-          paginate={paginate}
-          currentPage={currentPage}
-        />
-      )}
+      {tasks.length <= tasksPerPage ? <></> : <Pagination tasksPerPage={tasksPerPage} currentPage={currentPage} />}
     </div>
   );
 }

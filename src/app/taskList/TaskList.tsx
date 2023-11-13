@@ -6,10 +6,12 @@ import { PageContainer, SearchInput, MemoButtonGroup } from 'src/components/inde
 import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
 import { ACTIVE_TASKS, ALL_TASKS, DONE_TASKS, IMPORTANT_TASKS } from 'constants/searchTypes';
 import { useSearchSlice } from 'src/slices/search/search.hooks';
+import { usePaginationSlice } from 'src/slices/pagination/pagination.hooks';
 
 function TaskList() {
   const [searchText, setSearchText] = useState('');
   const { dispatch, fetchTasks, tasks, fetchTasksByName } = useTasksSlice();
+  const { setCurrentPage, paginationDispatch } = usePaginationSlice();
   const { searchType } = useSearchSlice();
 
   function searchFunc(e: FormEvent) {
@@ -21,6 +23,8 @@ function TaskList() {
       //Todo проверять searchType
       dispatch(fetchTasks());
     }
+
+    paginationDispatch(setCurrentPage(1));
   }
 
   useEffect(() => {
