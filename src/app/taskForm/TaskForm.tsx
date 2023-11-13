@@ -42,23 +42,19 @@ function TaskForm() {
   };
 
   function clickHandler(data: TaskFormType) {
-    console.log(data);
-
     if (id) {
       dispatch(
         changeDataTask({
           id: id,
-          name: defaultFormValues.taskName,
-          info: defaultFormValues.info,
-          isImportant: defaultFormValues.isImportant,
+          ...data,
+          name: data.taskName, // потому что в типах именно name
         })
       );
     } else {
       dispatch(
         addTask({
-          name: defaultFormValues.taskName,
-          info: defaultFormValues.info,
-          isImportant: defaultFormValues.isImportant,
+          ...data,
+          name: data.taskName, // потому что в типах именно name
         })
       );
     }
