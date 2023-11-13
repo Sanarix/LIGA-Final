@@ -8,8 +8,12 @@
   text-decoration: none;
   width: 100%;
   padding: 5% 0;
-  background-color: black;
+  background-color: #06090E;
   color: white;
   font-weight: bold;
   font-size: 1.5rem;
+}
+
+.addButton:hover {
+  color: white
 }

@@ -8,17 +8,15 @@ function ButtonGroup({ buttons }: ButtonGroupProps) {
   return (
     <>
       {buttons.map((buttonText, i) => (
-        <>
-          <button
-            key={i}
-            onClick={(e: React.MouseEvent) => {
-              e.preventDefault();
-              searchDispatch(changeSearch(buttonText));
-            }}
-            className={searchType === buttonText ? `${styles.customButton} ${styles.active}` : styles.customButton}>
-            {buttonText}
-          </button>
-        </>
+        <button
+          key={i}
+          onClick={(e: React.MouseEvent) => {
+            e.preventDefault();
+            searchDispatch(changeSearch(buttonText));
+          }}
+          className={searchType === buttonText ? `${styles.customButton} ${styles.active}` : styles.customButton}>
+          {buttonText}
+        </button>
       ))}
     </>
   );

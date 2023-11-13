@@ -1,19 +1,17 @@
 import styles from './Pagination.module.css';
-import { PaginationProps } from './Pagination.types';
 import { getTotalPages, getPageNumbers } from 'utils/pagination';
 import { usePaginationSlice } from 'src/slices/pagination/pagination.hooks';
 import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
 
-export function Pagination({ tasksPerPage, currentPage }: PaginationProps) {
+export function Pagination() {
   const maxPageVisible = 5;
   const { tasks } = useTasksSlice();
-  const { setCurrentPage, paginationDispatch } = usePaginationSlice();
+  const { currentPage, setCurrentPage, tasksPerPage, paginationDispatch } = usePaginationSlice();
   const totalTasks = tasks.length;
   const totalPages = getTotalPages({ totalTasks, tasksPerPage });
 
   const pageNumbers = getPaginationButtons(totalPages, maxPageVisible, currentPage);
   const paginate = (pageNumber: number) => paginationDispatch(setCurrentPage(pageNumber));
-  console.log(pageNumbers);
 
   const disabled = {
     start: () => pageNumbers[0] === 1,

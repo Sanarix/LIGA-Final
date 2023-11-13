@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useEffect, memo, useState } from 'react';
+import { memo } from 'react';
 import styles from './List.module.css';
 import { Pagination } from 'app/index';
 import iconDelete from 'assets/icons/icon-delete.svg';
@@ -12,19 +12,12 @@ import { mapDeleteTask } from 'utils/mapDeleteTask';
 import { usePaginationSlice } from 'src/slices/pagination/pagination.hooks';
 
 function List() {
-  const { isLoading, tasks, dispatch, fetchTasks, checkTaskById, removeTaskById } = useTasksSlice();
-  const { currentPage } = usePaginationSlice();
-  const [tasksPerPage] = useState(10);
+  const { isLoading, tasks, dispatch, checkTaskById, removeTaskById } = useTasksSlice();
+  const { currentPage, tasksPerPage } = usePaginationSlice();
+
   const lastTaskIndex = currentPage * tasksPerPage;
   const firstTaskIndex = lastTaskIndex - tasksPerPage;
   const currentTasks = tasks.slice(firstTaskIndex, lastTaskIndex);
-  // useEffect(() => {
-  //   dispatch(fetchTasks());
-  // }, []);
-
-  useEffect(() => {
-    console.log(tasks);
-  }, [tasks]);
 
   return (
     <div className="tasks-wrapper">
@@ -70,7 +63,7 @@ function List() {
         })}
       </Loader>
       {currentTasks.length === 0 && <h3>Not found</h3>}
-      {tasks.length <= tasksPerPage ? <></> : <Pagination tasksPerPage={tasksPerPage} currentPage={currentPage} />}
+      {tasks.length <= tasksPerPage ? <></> : <Pagination />}
     </div>
   );
 }
