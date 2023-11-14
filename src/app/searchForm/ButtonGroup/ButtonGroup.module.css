@@ -1,6 +1,5 @@
 .button-group {
   display: flex;
-  width: 50%;
 }
 
 .customButton:first-child{
@@ -25,7 +24,6 @@
 
 .customButton {
   box-sizing: border-box;
-  width: 150px;
   cursor: pointer;
   border: none;
 }

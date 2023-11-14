@@ -3,7 +3,7 @@ import styles from './searchForm.module.css';
 import { MemoButtonGroup } from './ButtonGroup';
 import { SearchInput } from 'src/components';
 import { ACTIVE_TASKS, ALL_TASKS, DONE_TASKS, IMPORTANT_TASKS } from 'constants/searchTypes';
-import { useSearchSlice, usePaginationSlice, useTasksSlice } from 'src/slices';
+import { useSearchSlice, usePaginationSlice, useTasksSlice, changeSearch } from 'src/slices';
 
 function SearchForm() {
   const [searchText, setSearchText] = useState('');
@@ -36,6 +36,7 @@ function SearchForm() {
           if (searchText.length > 0) {
             setSearchText('');
             dispatch(fetchTasks());
+            dispatch(changeSearch(ALL_TASKS));
           }
         }}
       />
