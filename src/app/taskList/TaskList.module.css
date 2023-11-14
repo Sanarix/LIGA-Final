@@ -17,3 +17,25 @@
 .addButton:hover {
   color: white
 }
+
+.errorBlock {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: tomato;
+  text-align: center;
+  transition-duration: 200ms;
+  animation-name: errorFadeTop;
+  animation-duration: 200ms;
+}
+
+@keyframes errorFadeTop {
+  from {
+    top: -100%;
+  }
+
+  to {
+    top: 0;
+  }
+}

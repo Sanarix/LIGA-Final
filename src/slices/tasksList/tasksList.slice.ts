@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { TasksState } from './tasksListSlice.types';
+import { ACTIVE_TASKS, ALL_TASKS, DONE_TASKS, IMPORTANT_TASKS } from 'constants/searchTypes';
+import { FetchedTasks } from 'types/task/Task.types';
 
 const initialState: TasksState = {
   tasksData: [],
@@ -11,7 +13,29 @@ export const tasksListSlice = createSlice({
   initialState,
   reducers: {
     setTasks: (state, action) => {
-      state.tasksData = action.payload.tasks;
+      const tasks: FetchedTasks = action.payload.tasks;
+      if (!action.payload.searchQuery) {
+        action.payload.searchQuery = ALL_TASKS;
+      }
+
+      switch (action.payload.searchQuery) {
+        case ALL_TASKS:
+          state.tasksData = tasks;
+          break;
+        case ACTIVE_TASKS:
+          state.tasksData = tasks.filter((task) => task.isCompleted !== true || task.isCompleted === undefined);
+          break;
+        case DONE_TASKS:
+          state.tasksData = tasks.filter((task) => task.isCompleted === true);
+          break;
+        case IMPORTANT_TASKS:
+          state.tasksData = tasks.filter((task) => task.isImportant === true);
+          break;
+        default:
+          throw new Error('Incorrect search query');
+      }
+
+      // state.tasksData = action.payload.tasks;
     },
 
     pushTask: (state, action) => {

@@ -4,7 +4,7 @@ import styles from './ButtonGroup.module.css';
 import { useSearchSlice } from 'src/slices/search/search.hooks';
 
 function ButtonGroup({ buttons }: ButtonGroupProps) {
-  const { changeSearch, searchType, searchDispatch } = useSearchSlice();
+  const { changeSearch, searchQuery, searchDispatch } = useSearchSlice();
   return (
     <>
       {buttons.map((buttonText, i) => (
@@ -14,7 +14,7 @@ function ButtonGroup({ buttons }: ButtonGroupProps) {
             e.preventDefault();
             searchDispatch(changeSearch(buttonText));
           }}
-          className={searchType === buttonText ? `${styles.customButton} ${styles.active}` : styles.customButton}>
+          className={searchQuery === buttonText ? `${styles.customButton} ${styles.active}` : styles.customButton}>
           {buttonText}
         </button>
       ))}

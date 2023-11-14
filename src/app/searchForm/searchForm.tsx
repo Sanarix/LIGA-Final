@@ -9,7 +9,7 @@ import { usePaginationSlice } from 'src/slices/pagination/pagination.hooks';
 
 function SearchForm() {
   const [searchText, setSearchText] = useState('');
-  const { searchType } = useSearchSlice();
+  const { searchQuery } = useSearchSlice();
   const { isLoading, dispatch, fetchTasks, fetchTasksByName } = useTasksSlice();
   const { setCurrentPage, paginationDispatch } = usePaginationSlice();
 
@@ -17,10 +17,10 @@ function SearchForm() {
     e.preventDefault();
 
     if (searchText.trim().length > 0) {
-      dispatch(fetchTasksByName({ taskName: searchText, searchQuery: searchType }));
+      dispatch(fetchTasksByName({ taskName: searchText }, searchQuery));
     } else {
       //Todo проверять searchType
-      dispatch(fetchTasks());
+      dispatch(fetchTasks(searchQuery));
     }
 
     paginationDispatch(setCurrentPage(1));

@@ -17,39 +17,41 @@ import { getTasksByNameApi } from 'api/getTasksByNameApi';
 import { checkTaskByIdApi } from 'api/checkedTaskByIdApi';
 import { addTaskApi } from 'api/addTaskApi';
 import { changeTaskApi } from 'api/changeTaskApi';
+import { ALL_TASKS } from 'constants/searchTypes';
 
-export const fetchTasks = () => async (dispatch: Dispatch) => {
+export const fetchTasks = (searchQuery?: string) => async (dispatch: Dispatch) => {
   try {
     dispatch(setLoader());
     const axiosResponse: AxiosResponse<FetchedTasks> = await getTasksApi();
     if (Array.isArray(axiosResponse.data)) {
-      dispatch(setTasks({ tasks: axiosResponse.data }));
+      dispatch(setError({ message: '' }));
+      dispatch(setTasks({ tasks: axiosResponse.data, searchQuery }));
     } else {
       throw new Error();
     }
   } catch (e) {
     console.log(e);
-    dispatch(setError({ message: 'Произошла ошибка' }));
+    dispatch(setError({ message: 'Server is not responding' }));
   } finally {
     dispatch(unsetLoader());
   }
 };
 
 export const fetchTasksByName =
-  ({ taskName, searchQuery }: { taskName: string; searchQuery: string }) =>
+  ({ taskName }: { taskName: string }, searchQuery: string) =>
   async (dispatch: Dispatch) => {
     try {
       dispatch(setLoader());
 
       const axiosResponse: AxiosResponse<FetchedTasks> = await getTasksByNameApi({ taskName, searchQuery });
       if (Array.isArray(axiosResponse.data)) {
-        dispatch(setTasks({ tasks: axiosResponse.data, filter: searchQuery }));
+        dispatch(setTasks({ tasks: axiosResponse.data, searchQuery }));
       } else {
         throw new Error();
       }
     } catch (e) {
       console.log(e);
-      dispatch(setError({ message: 'Произошла ошибка при получения задачи' }));
+      dispatch(setError({ message: 'Task not found' }));
     } finally {
       dispatch(unsetLoader());
     }
@@ -61,7 +63,7 @@ export const checkTaskById = (taskId: string) => async (dispatch: Dispatch) => {
     dispatch(checkTask(taskId));
   } catch (e) {
     console.log(e);
-    throw new Error('Произошла ошибка');
+    throw new Error('Task not available');
   }
 };
 
@@ -70,12 +72,10 @@ export const addTask = (taskData: AddTaskType) => async (dispatch: Dispatch) => 
     const axiosResponse: AxiosResponse<FetchedTasks> = await addTaskApi(taskData);
     if (axiosResponse.data) {
       dispatch(pushTask(axiosResponse.data));
-    } else {
-      throw new Error('Сервер не отвечает');
     }
   } catch (e) {
     console.log(e);
-    throw new Error('Произошла ошибка');
+    throw new Error('Server is not responding');
   }
 };
 
@@ -84,12 +84,10 @@ export const changeDataTask = (taskData: ChangeTaskType) => async (dispatch: Dis
     const axiosResponse: AxiosResponse<FetchedTasks> = await changeTaskApi(taskData);
     if (axiosResponse.data) {
       dispatch(changeTask(axiosResponse.data));
-    } else {
-      throw new Error('Сервер не отвечает');
     }
   } catch (e) {
     console.log(e);
-    throw new Error('Произошла ошибка');
+    throw new Error('Server is not responding');
   }
 };
 
@@ -99,6 +97,6 @@ export const removeTaskById = (taskId: DeletedId) => async (dispatch: Dispatch) 
     dispatch(deleteTask(taskId));
   } catch (e) {
     console.log(e);
-    throw new Error('Возникла ошибка при удалении');
+    throw new Error('Task is not available');
   }
 };
