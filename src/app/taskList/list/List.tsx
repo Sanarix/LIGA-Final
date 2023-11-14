@@ -6,7 +6,7 @@ import iconDelete from 'assets/icons/icon-delete.svg';
 import iconEdit from 'assets/icons/icon-edit.svg';
 import { Task, Loader, Checkbox } from 'src/components';
 import { useTasksSlice, usePaginationSlice } from 'src/slices';
-import { mapDeleteTask } from 'utils/mapDeleteTask';
+import { mapDeleteTask } from 'src/utils';
 
 function List() {
   const { isLoading, tasks, dispatch, checkTaskById, removeTaskById } = useTasksSlice();

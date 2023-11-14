@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { TasksState } from './tasksListSlice.types';
 import { ACTIVE_TASKS, ALL_TASKS, DONE_TASKS, IMPORTANT_TASKS } from 'constants/searchTypes';
 import { FetchedTasks } from 'src/types';
+import { mapTaskId } from 'utils/mappers/mapTaskId';
 
 const initialState: TasksState = {
   tasksData: [],
@@ -53,7 +54,7 @@ export const tasksListSlice = createSlice({
 
     checkTask: (state, action) => {
       state.tasksData = state.tasksData.map((task) => {
-        if (task.id === Number(action.payload.taskId)) {
+        if (task.id === mapTaskId(action.payload.taskId)) {
           return { ...task, isCompleted: true, isImportant: false };
         }
         return task;
@@ -62,7 +63,7 @@ export const tasksListSlice = createSlice({
 
     deleteTask: (state, action) => {
       if (action.payload) {
-        state.tasksData = state.tasksData.filter((task) => task.id !== Number(action.payload.taskId));
+        state.tasksData = state.tasksData.filter((task) => task.id !== mapTaskId(action.payload.taskId));
       }
     },
 

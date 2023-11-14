@@ -1,5 +1,5 @@
 import styles from './Pagination.module.css';
-import { getTotalPages, getPageNumbers } from 'utils/pagination';
+import { getTotalPages, getPageNumbers } from 'src/utils';
 import { usePaginationSlice, useTasksSlice } from 'src/slices';
 
 export function Pagination() {

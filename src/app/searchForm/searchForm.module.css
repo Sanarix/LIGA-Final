@@ -1,7 +1,13 @@
 .search-form{
   display: flex;
   justify-content: space-between;
-  gap: 5%;
+  flex-wrap: wrap;
+}
+
+.container {
+  width: 60%;
+  display: flex;
+  justify-content: space-around;
 }
 
 .submit-btn {
@@ -10,4 +16,21 @@
   color: white;
   font-weight: 600;
   width: 20%;
+}
+
+.submit-btn:disabled {
+  background-color: lightslategray;
+}
+
+@media screen and (max-width: 768px) {
+  .search-form {
+    justify-content: center;
+  }
+
+  .container {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5%;
+  }
 }

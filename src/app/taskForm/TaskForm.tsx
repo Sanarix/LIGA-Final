@@ -9,7 +9,7 @@ import type { TaskFormType } from 'src/types';
 import { Checkbox, PageContainer, TextField } from 'src/components';
 import { ReduxStore } from 'types/redux/redux';
 import { useTasksSlice } from 'src/slices';
-import { getTaskFormHandlers } from 'utils/taskForm/handlers';
+import { getTaskFormHandlers, mapTaskId } from 'src/utils';
 
 function TaskForm() {
   const { id } = useParams();
@@ -22,7 +22,7 @@ function TaskForm() {
   const navigate = useNavigate();
 
   const editedTask = useSelector((state: ReduxStore) => {
-    return state.tasksList.tasksData.find((task) => task.id === Number(id));
+    return state.tasksList.tasksData.find((task) => task.id === mapTaskId(id));
   });
 
   const defaultFormValues: TaskFormType = {
@@ -38,7 +38,7 @@ function TaskForm() {
 
   const { onTaskNameChange, onTaskInfoChange, onIsImportantChange } = getTaskFormHandlers(setValue);
 
-  function clickHandler(data: TaskFormType) {
+  function submitHandler(data: TaskFormType) {
     if (id) {
       dispatch(
         changeDataTask({
@@ -61,7 +61,7 @@ function TaskForm() {
   return (
     <PageContainer>
       <header className={styles.header}>Todo List | {id ? 'EDIT TASK' : 'ADD TASK'}</header>
-      <form className={styles['task-form']} onSubmit={handleSubmit(clickHandler)}>
+      <form className={styles['task-form']} onSubmit={handleSubmit(submitHandler)}>
         <Controller
           control={control}
           name="taskName"
@@ -110,7 +110,10 @@ function TaskForm() {
             )}></Controller>
         )}
 
-        <button className={styles['add-button']}>{id ? 'EDIT TASK' : 'ADD TASK'}</button>
+        <button className={styles['button']}>{id ? 'EDIT TASK' : 'ADD TASK'}</button>
+        <button type="button" className={styles['button']} onClick={() => navigate('/', { replace: true })}>
+          Back
+        </button>
       </form>
     </PageContainer>
   );

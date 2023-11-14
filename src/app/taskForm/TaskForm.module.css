@@ -8,7 +8,7 @@
   font-size: 3rem;
 }
 
-.add-button {
+.button {
   display: block;
   text-decoration: none;
   text-align: center;
@@ -20,7 +20,7 @@
   border: black;
 }
 
-.add-button:hover {
+.button:hover {
   color: greenyellow
 }
 

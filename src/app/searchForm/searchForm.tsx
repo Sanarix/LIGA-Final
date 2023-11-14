@@ -40,10 +40,12 @@ function SearchForm() {
           }
         }}
       />
-      <MemoButtonGroup buttons={[ALL_TASKS, ACTIVE_TASKS, DONE_TASKS, IMPORTANT_TASKS]} />
-      <button className={styles['submit-btn']} disabled={isLoading ? true : false}>
-        Find
-      </button>
+      <div className={styles['container']}>
+        <MemoButtonGroup buttons={[ALL_TASKS, ACTIVE_TASKS, DONE_TASKS, IMPORTANT_TASKS]} />
+        <button className={styles['submit-btn']} disabled={isLoading ? true : false}>
+          Find
+        </button>
+      </div>
     </form>
   );
 }
