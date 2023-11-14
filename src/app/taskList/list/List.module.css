@@ -1,11 +1,19 @@
 .checkbox {
-  width: 10%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.tasks-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+}
+
 .task {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,25 +21,56 @@
   width: 80%;
 }
 
+.taskHeader {
+  width: 100%;
+  word-wrap: break-word;
+  text-align: center;
+}
+
+.taskText {
+  width: 100%;
+  word-wrap: break-word;
+  text-align: center;
+}
+
 .buttons {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 10%;
 }
 
 .button {
-  background-color: lemonchiffon;
   margin-bottom: 5%;
-}
-
-.deleteButton {
-  background: tomato;
+  border: none;
+  background-color: inherit;
 }
 
 .icon {
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+
+.isImportant {
+  position: absolute;
+  top: -15%;
+  left: 80%;
+  text-align: center;
+  font-weight: 600;
+  color: green;
+  user-select: none;
+  background-color: #ffd700;
+  padding: 0 1%;
+  border-radius: 5px;
+}
+
+@media screen and (min-width: 768px) {
+  .isImportant {
+    left: 85%;
+  }
 }

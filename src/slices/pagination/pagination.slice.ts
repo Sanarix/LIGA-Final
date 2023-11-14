@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { tasksPerPage } from 'constants/tasksPerPage';
 import { FetchedTasks } from 'types/task/Task.types';
 
 type InitialType = {
@@ -10,7 +11,7 @@ type InitialType = {
 const initialState: InitialType = {
   currentPage: 1,
   currentTasks: [],
-  tasksPerPage: 10,
+  tasksPerPage: tasksPerPage,
 };
 
 export const paginationSlice = createSlice({

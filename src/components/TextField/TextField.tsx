@@ -6,6 +6,7 @@ export function TextField({
   label,
   placeholder,
   containerClassName = '',
+  inputClassName = '',
   inputType,
   value,
   onChange,
@@ -18,7 +19,7 @@ export function TextField({
       </label>
       <input
         type={inputType}
-        className="form-control"
+        className={`form-control ${inputClassName}`}
         id={label}
         placeholder={placeholder}
         value={value}

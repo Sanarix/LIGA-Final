@@ -20,15 +20,15 @@ function List() {
   const currentTasks = tasks.slice(firstTaskIndex, lastTaskIndex);
 
   return (
-    <div className="tasks-wrapper">
+    <div className={styles['tasks-wrapper']}>
       <Loader isLoading={isLoading}>
         {currentTasks.map((task) => {
           return (
             <Task key={task.id}>
-              <div className={styles.checkbox}>
+              <div className={styles['checkbox-container']}>
                 <Checkbox
                   label=""
-                  containerClassName={styles['checkbox-container']}
+                  containerClassName={styles.checkbox}
                   checked={task.isCompleted ? true : undefined}
                   disabled={task.isCompleted ? true : false}
                   onChange={async (e) => {
@@ -36,11 +36,10 @@ function List() {
                     await dispatch(checkTaskById(String(task.id)));
                   }}
                 />
-                {task.isImportant ? <p>important</p> : <></>}
               </div>
               <div className={styles.task}>
-                <h2>{task.name}</h2>
-                <p>{task.info}</p>
+                <h2 className={styles.taskHeader}>{task.name}</h2>
+                <p className={styles.taskText}>{task.info}</p>
               </div>
               <div className={styles.buttons}>
                 <Link to={`/TaskForm/${task.id}`} className={styles.button}>
@@ -49,7 +48,7 @@ function List() {
                   </svg>
                 </Link>
                 <button
-                  className={styles.deleteButton}
+                  className={styles.button}
                   onClick={async () => {
                     await dispatch(removeTaskById(mapDeleteTask(task.id)));
                   }}>
@@ -57,13 +56,14 @@ function List() {
                     <use xlinkHref={`${iconDelete}`}></use>
                   </svg>
                 </button>
+                {task.isImportant && <span className={styles.isImportant}>Important</span>}
               </div>
             </Task>
           );
         })}
+        {currentTasks.length === 0 && <h3>Not found</h3>}
+        {tasks.length <= tasksPerPage ? <></> : <Pagination />}
       </Loader>
-      {currentTasks.length === 0 && <h3>Not found</h3>}
-      {tasks.length <= tasksPerPage ? <></> : <Pagination />}
     </div>
   );
 }

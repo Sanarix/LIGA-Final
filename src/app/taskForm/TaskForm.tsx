@@ -1,9 +1,9 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { memo, useState, ChangeEvent } from 'react';
+import { memo, ChangeEvent, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import style from './TaskForm.module.css';
+import styles from './TaskForm.module.css';
 import type { TaskFormType } from './TaskForm.types';
 import { validationSchema } from './TaskFormValidationSchema';
 import { Checkbox, PageContainer, TextField } from 'src/components';
@@ -12,11 +12,16 @@ import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
 
 function TaskForm() {
   const { id } = useParams();
+  const { addTask, changeDataTask, dispatch, fetchTasks } = useTasksSlice();
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, []);
+
   const editedTask = useSelector((state: ReduxStore) => {
+    console.log(state.tasksList.tasksData);
+
     return state.tasksList.tasksData.find((task) => task.id === Number(id));
   });
-
-  const { addTask, changeDataTask, dispatch } = useTasksSlice();
 
   const navigate = useNavigate();
 
@@ -63,30 +68,52 @@ function TaskForm() {
 
   return (
     <PageContainer>
-      <header className={style.header}>Todo List | {id ? 'EDIT TASK' : 'ADD TASK'}</header>
+      <header className={styles.header}>Todo List | {id ? 'EDIT TASK' : 'ADD TASK'}</header>
       <form className="task-form" onSubmit={handleSubmit(clickHandler)}>
         <Controller
           control={control}
           name="taskName"
           render={({ field, fieldState: { error } }) => (
-            <TextField label={'Task name'} value={field.value} onChange={onTaskNameChange} />
+            <>
+              <TextField
+                label={'Task name'}
+                value={field.value}
+                onChange={onTaskNameChange}
+                containerClassName={error?.message ? 'invalid' : ''}
+                inputClassName={error?.message ? `${styles['invalid-input']}` : ''}
+              />
+              <div className={styles['invalid-feedback']}>{error?.message}</div>
+            </>
           )}></Controller>
 
         <Controller
           control={control}
           name="info"
           render={({ field, fieldState: { error } }) => (
-            <TextField label={'What to do (description)'} value={field.value} onChange={onTaskInfoChange} />
+            <>
+              <TextField
+                label={'What to do (description)'}
+                value={field.value}
+                onChange={onTaskInfoChange}
+                containerClassName={error?.message ? 'invalid' : ''}
+                inputClassName={error?.message ? `${styles['invalid-input']}` : ''}
+              />
+              <div className={styles['invalid-feedback']}>{error?.message}</div>
+            </>
           )}></Controller>
 
-        <Controller
-          control={control}
-          name="isImportant"
-          render={({ field, fieldState: { error } }) => (
-            <Checkbox checked={field.value} label={'Important'} onChange={onIsImportantChange} />
-          )}></Controller>
+        {editedTask?.isCompleted ? (
+          <></>
+        ) : (
+          <Controller
+            control={control}
+            name="isImportant"
+            render={({ field, fieldState: { error } }) => (
+              <Checkbox checked={field.value} label={'Important'} onChange={onIsImportantChange} />
+            )}></Controller>
+        )}
 
-        <button className={style['add-button']}>{id ? 'EDIT TASK' : 'ADD TASK'}</button>
+        <button className={styles['add-button']}>{id ? 'EDIT TASK' : 'ADD TASK'}</button>
       </form>
     </PageContainer>
   );

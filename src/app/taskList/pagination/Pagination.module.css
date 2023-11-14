@@ -1,13 +1,17 @@
 .pagination {
-  list-style: none;
   display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+  margin-bottom: 10%;
+  width: 100%;
 }
 
 .button {
   border: 1px solid black;
-  padding: 1%;
+  padding: 2%;
   cursor: pointer;
-  background-color: grey;
+  width: 100%;
 }
 
 .button:hover {
@@ -20,6 +24,11 @@
   color: white;
 }
 
-.button_disabled {
+.button_active:hover {
+  background-color: black;
+}
+
+.button:disabled {
   background-color: silver;
+  cursor:auto;
 }
