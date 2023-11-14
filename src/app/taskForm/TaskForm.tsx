@@ -22,7 +22,6 @@ function TaskForm() {
   const navigate = useNavigate();
 
   const editedTask = useSelector((state: ReduxStore) => {
-    console.log(state.tasksList.tasksData);
     return state.tasksList.tasksData.find((task) => task.id === Number(id));
   });
 
@@ -70,7 +69,7 @@ function TaskForm() {
             <div className="controller-container">
               <TextField
                 label={'Task name'}
-                value={field.value}
+                value={field.value || defaultFormValues.taskName}
                 onChange={onTaskNameChange}
                 containerClassName={error?.message ? 'invalid' : ''}
                 inputClassName={error?.message ? `${styles['invalid-input']}` : `${styles.input}`}
@@ -86,7 +85,7 @@ function TaskForm() {
             <div className="controller-container">
               <TextField
                 label={'What to do (description)'}
-                value={field.value}
+                value={field.value || defaultFormValues.info}
                 onChange={onTaskInfoChange}
                 containerClassName={error?.message ? 'invalid' : ''}
                 inputClassName={error?.message ? `${styles['invalid-input']}` : `${styles.input}`}
@@ -103,7 +102,7 @@ function TaskForm() {
             name="isImportant"
             render={({ field, fieldState: { error } }) => (
               <Checkbox
-                checked={field.value}
+                checked={field.value || defaultFormValues.isImportant}
                 label={'Important'}
                 onChange={onIsImportantChange}
                 containerClassName={styles['input-container']}
