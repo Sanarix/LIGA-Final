@@ -54,7 +54,7 @@ export const tasksListSlice = createSlice({
     checkTask: (state, action) => {
       state.tasksData = state.tasksData.map((task) => {
         if (task.id === Number(action.payload.taskId)) {
-          return { ...task, isCompleted: true };
+          return { ...task, isCompleted: true, isImportant: false };
         }
         return task;
       });

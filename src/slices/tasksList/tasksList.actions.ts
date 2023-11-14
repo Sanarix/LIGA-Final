@@ -17,7 +17,6 @@ import { getTasksByNameApi } from 'api/getTasksByNameApi';
 import { checkTaskByIdApi } from 'api/checkedTaskByIdApi';
 import { addTaskApi } from 'api/addTaskApi';
 import { changeTaskApi } from 'api/changeTaskApi';
-import { ALL_TASKS } from 'constants/searchTypes';
 
 export const fetchTasks = (searchQuery?: string) => async (dispatch: Dispatch) => {
   try {
@@ -60,7 +59,7 @@ export const fetchTasksByName =
 export const checkTaskById = (taskId: string) => async (dispatch: Dispatch) => {
   try {
     checkTaskByIdApi({ taskId });
-    dispatch(checkTask(taskId));
+    dispatch(checkTask({ taskId }));
   } catch (e) {
     console.log(e);
     throw new Error('Task not available');

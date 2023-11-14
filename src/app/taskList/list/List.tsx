@@ -29,7 +29,7 @@ function List() {
                 <Checkbox
                   label=""
                   containerClassName={styles.checkbox}
-                  checked={task.isCompleted ? true : undefined}
+                  checked={task.isCompleted ? true : false}
                   disabled={task.isCompleted ? true : false}
                   onChange={async (e) => {
                     e.currentTarget.disabled = true;
