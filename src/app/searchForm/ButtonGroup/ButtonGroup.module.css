@@ -1,12 +1,37 @@
+.button-group {
+  display: flex;
+  width: 50%;
+}
+
+.customButton:first-child{
+  border-radius: 5px 0 0 5px;
+}
+
+.customButton:last-child{
+  border-radius: 0 5px 5px 0;
+}
+
+.customButton:nth-child(odd):not(.customButton:first-child){
+  border-left: 1px solid grey;
+}
+
+.customButton:nth-child(even){
+  border-left: 1px solid grey;
+}
+
+.button-group:last-child {
+  border-radius: 0 5px 5px 0;
+}
+
 .customButton {
+  box-sizing: border-box;
   width: 150px;
-  height: 50px;
-  border-radius: 5px;
   cursor: pointer;
-  }
+  border: none;
+}
 
 .active{
   background-color: #06090E;
   border: #06090E;
   color: white;
-  }
+}

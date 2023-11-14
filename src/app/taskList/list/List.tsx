@@ -4,10 +4,8 @@ import styles from './List.module.css';
 import { Pagination } from 'app/index';
 import iconDelete from 'assets/icons/icon-delete.svg';
 import iconEdit from 'assets/icons/icon-edit.svg';
-import { Task } from 'src/app/taskList/task/Task';
-import { Checkbox } from 'components/Checkbox';
+import { Task, Loader, Checkbox } from 'src/components';
 import { useTasksSlice, usePaginationSlice } from 'src/slices';
-import { Loader } from 'components/Loader';
 import { mapDeleteTask } from 'utils/mapDeleteTask';
 
 function List() {

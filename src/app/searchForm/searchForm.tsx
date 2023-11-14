@@ -25,7 +25,7 @@ function SearchForm() {
   }
 
   return (
-    <form id={styles['search-form']} onSubmit={searchFunc}>
+    <form className={styles['search-form']} onSubmit={searchFunc}>
       {' '}
       <SearchInput
         onChange={function (text: string): void {
@@ -40,7 +40,7 @@ function SearchForm() {
         }}
       />
       <MemoButtonGroup buttons={[ALL_TASKS, ACTIVE_TASKS, DONE_TASKS, IMPORTANT_TASKS]} />
-      <button className="submit-btn" disabled={isLoading ? true : false}>
+      <button className={styles['submit-btn']} disabled={isLoading ? true : false}>
         Find
       </button>
     </form>

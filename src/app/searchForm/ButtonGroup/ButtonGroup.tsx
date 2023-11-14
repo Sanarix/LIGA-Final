@@ -6,7 +6,7 @@ import { useSearchSlice } from 'src/slices';
 function ButtonGroup({ buttons }: ButtonGroupProps) {
   const { changeSearch, searchQuery, searchDispatch } = useSearchSlice();
   return (
-    <>
+    <div className={styles['button-group']}>
       {buttons.map((buttonText, i) => (
         <button
           key={i}
@@ -18,7 +18,7 @@ function ButtonGroup({ buttons }: ButtonGroupProps) {
           {buttonText}
         </button>
       ))}
-    </>
+    </div>
   );
 }
 
