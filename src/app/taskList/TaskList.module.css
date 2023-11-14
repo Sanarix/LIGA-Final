@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Glass+Antiqua&family=Heebo:wght@600&display=swap');
+
+.task-list {
+  font-family: 'Glass Antiqua', cursive;
+  font-family: 'Heebo', sans-serif;
+}
+
 .header {
   margin-bottom: 10%;
 }
@@ -11,8 +18,9 @@
   background-color: #06090E;
   color: white;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin-bottom: 10%;
+  border-radius: 5px;
 }
 
 .addButton:hover {

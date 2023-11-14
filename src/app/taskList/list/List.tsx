@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { memo } from 'react';
 import styles from './List.module.css';
-import { Pagination } from 'app/index';
+import { MemoPagination } from 'app/index';
 import iconDelete from 'assets/icons/icon-delete.svg';
 import iconEdit from 'assets/icons/icon-edit.svg';
 import { Task, Loader, Checkbox } from 'src/components';
@@ -59,7 +59,7 @@ function List() {
           );
         })}
         {currentTasks.length === 0 && <h3>Not found</h3>}
-        {tasks.length <= tasksPerPage ? <></> : <Pagination />}
+        {tasks.length <= tasksPerPage ? <></> : <MemoPagination />}
       </Loader>
     </div>
   );

@@ -14,7 +14,7 @@ function TaskList() {
   }, []);
 
   return (
-    <PageContainer className="task-list">
+    <PageContainer className={styles['task-list']}>
       {error && <div className={styles.errorBlock}>{error}</div>}
       <header className={styles.header}>
         <h1 className="">Todo List</h1>

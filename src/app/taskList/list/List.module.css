@@ -67,6 +67,7 @@
   background-color: #ffd700;
   padding: 0 1%;
   border-radius: 5px;
+  box-shadow: 0 5px 10px 1px rgba(0,0,0,0.2)
 }
 
 @media screen and (min-width: 768px) {

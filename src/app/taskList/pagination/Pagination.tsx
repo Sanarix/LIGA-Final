@@ -1,8 +1,9 @@
+import { memo } from 'react';
 import styles from './Pagination.module.css';
 import { getTotalPages, getPageNumbers } from 'src/utils';
 import { usePaginationSlice, useTasksSlice } from 'src/slices';
 
-export function Pagination() {
+function Pagination() {
   const maxPageVisible = 5;
   const { tasks } = useTasksSlice();
   const { currentPage, setCurrentPage, tasksPerPage, paginationDispatch } = usePaginationSlice();
@@ -61,3 +62,5 @@ export function Pagination() {
     </div>
   );
 }
+
+export const MemoPagination = memo(Pagination);
