@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { ButtonGroupProps } from './ButtonGroup.types';
 import styles from './ButtonGroup.module.css';
-import { useSearchSlice } from 'src/slices/search/search.hooks';
+import { useSearchSlice } from 'src/slices';
 
 function ButtonGroup({ buttons }: ButtonGroupProps) {
   const { changeSearch, searchQuery, searchDispatch } = useSearchSlice();

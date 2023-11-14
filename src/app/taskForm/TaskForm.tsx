@@ -1,14 +1,14 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { memo, ChangeEvent, useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import styles from './TaskForm.module.css';
 import { validationSchema } from './TaskFormValidationSchema';
-import type { TaskFormType } from 'src/types/taskForm/TaskForm.types';
+import type { TaskFormType } from 'src/types';
 import { Checkbox, PageContainer, TextField } from 'src/components';
 import { ReduxStore } from 'types/redux/redux';
-import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
+import { useTasksSlice } from 'src/slices';
 import { getTaskFormHandlers } from 'utils/taskForm/handlers';
 
 function TaskForm() {
@@ -100,7 +100,7 @@ function TaskForm() {
           <Controller
             control={control}
             name="isImportant"
-            render={({ field, fieldState: { error } }) => (
+            render={({ field }) => (
               <Checkbox
                 checked={field.value || defaultFormValues.isImportant}
                 label={'Important'}

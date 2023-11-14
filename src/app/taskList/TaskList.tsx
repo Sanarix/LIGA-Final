@@ -2,11 +2,9 @@ import { memo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MemoList } from './list/List';
 import styles from './TaskList.module.css';
-import { PageContainer } from 'src/components/index';
-import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
-
+import { PageContainer } from 'src/components';
+import { useTasksSlice, useErrorSlice } from 'src/slices';
 import { MemoSearchForm } from 'app/searchForm/searchForm';
-import { useErrorSlice } from 'src/slices/errors/errors.hook';
 
 function TaskList() {
   const { dispatch, fetchTasks } = useTasksSlice();

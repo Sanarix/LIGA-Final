@@ -9,7 +9,7 @@ import {
   changeTask,
   deleteTask,
 } from 'src/slices/tasksList/tasksList.slice';
-import { setError } from 'src/slices/errors/error.slice';
+import { setError } from 'src/slices';
 import { getTasksApi } from 'api/getTasksApi';
 import type { AddTaskType, ChangeTaskType, DeletedId, FetchedTasks } from 'types/task/Task.types';
 import { removeTasksApi } from 'api/removeTasksApi';

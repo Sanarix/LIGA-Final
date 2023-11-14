@@ -6,10 +6,9 @@ import iconDelete from 'assets/icons/icon-delete.svg';
 import iconEdit from 'assets/icons/icon-edit.svg';
 import { Task } from 'src/app/taskList/task/Task';
 import { Checkbox } from 'components/Checkbox';
-import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
+import { useTasksSlice, usePaginationSlice } from 'src/slices';
 import { Loader } from 'components/Loader';
 import { mapDeleteTask } from 'utils/mapDeleteTask';
-import { usePaginationSlice } from 'src/slices/pagination/pagination.hooks';
 
 function List() {
   const { isLoading, tasks, dispatch, checkTaskById, removeTaskById } = useTasksSlice();

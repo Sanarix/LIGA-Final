@@ -1,7 +1,6 @@
 import styles from './Pagination.module.css';
 import { getTotalPages, getPageNumbers } from 'utils/pagination';
-import { usePaginationSlice } from 'src/slices/pagination/pagination.hooks';
-import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
+import { usePaginationSlice, useTasksSlice } from 'src/slices';
 
 export function Pagination() {
   const maxPageVisible = 5;

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { tasksPerPage } from 'constants/tasksPerPage';
-import { FetchedTasks } from 'types/task/Task.types';
+import { FetchedTasks } from 'src/types';
 
 type InitialType = {
   currentPage: number;

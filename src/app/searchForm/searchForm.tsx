@@ -1,11 +1,9 @@
 import { FormEvent, memo, useState } from 'react';
 import styles from './searchForm.module.css';
 import { MemoButtonGroup } from './ButtonGroup';
-import { SearchInput } from 'components/index';
+import { SearchInput } from 'src/components';
 import { ACTIVE_TASKS, ALL_TASKS, DONE_TASKS, IMPORTANT_TASKS } from 'constants/searchTypes';
-import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
-import { useSearchSlice } from 'src/slices/search/search.hooks';
-import { usePaginationSlice } from 'src/slices/pagination/pagination.hooks';
+import { useSearchSlice, usePaginationSlice, useTasksSlice } from 'src/slices';
 
 function SearchForm() {
   const [searchText, setSearchText] = useState('');

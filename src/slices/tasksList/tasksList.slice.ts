@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { TasksState } from './tasksListSlice.types';
 import { ACTIVE_TASKS, ALL_TASKS, DONE_TASKS, IMPORTANT_TASKS } from 'constants/searchTypes';
-import { FetchedTasks } from 'types/task/Task.types';
+import { FetchedTasks } from 'src/types';
 
 const initialState: TasksState = {
   tasksData: [],
