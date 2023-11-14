@@ -4,26 +4,27 @@ import { memo, ChangeEvent, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import styles from './TaskForm.module.css';
-import type { TaskFormType } from './TaskForm.types';
 import { validationSchema } from './TaskFormValidationSchema';
+import type { TaskFormType } from 'src/types/taskForm/TaskForm.types';
 import { Checkbox, PageContainer, TextField } from 'src/components';
 import { ReduxStore } from 'types/redux/redux';
 import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
+import { getTaskFormHandlers } from 'utils/taskForm/handlers';
 
 function TaskForm() {
   const { id } = useParams();
   const { addTask, changeDataTask, dispatch, fetchTasks } = useTasksSlice();
+
   useEffect(() => {
     dispatch(fetchTasks());
   }, []);
 
+  const navigate = useNavigate();
+
   const editedTask = useSelector((state: ReduxStore) => {
     console.log(state.tasksList.tasksData);
-
     return state.tasksList.tasksData.find((task) => task.id === Number(id));
   });
-
-  const navigate = useNavigate();
 
   const defaultFormValues: TaskFormType = {
     taskName: editedTask?.name || '',
@@ -36,15 +37,7 @@ function TaskForm() {
     resolver: yupResolver(validationSchema),
   });
 
-  const onTaskNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue('taskName', e.target.value);
-  };
-  const onTaskInfoChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue('info', e.target.value);
-  };
-  const onIsImportantChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue('isImportant', e.target.checked);
-  };
+  const { onTaskNameChange, onTaskInfoChange, onIsImportantChange } = getTaskFormHandlers(setValue);
 
   function clickHandler(data: TaskFormType) {
     if (id) {
@@ -69,37 +62,37 @@ function TaskForm() {
   return (
     <PageContainer>
       <header className={styles.header}>Todo List | {id ? 'EDIT TASK' : 'ADD TASK'}</header>
-      <form className="task-form" onSubmit={handleSubmit(clickHandler)}>
+      <form className={styles['task-form']} onSubmit={handleSubmit(clickHandler)}>
         <Controller
           control={control}
           name="taskName"
           render={({ field, fieldState: { error } }) => (
-            <>
+            <div className="controller-container">
               <TextField
                 label={'Task name'}
                 value={field.value}
                 onChange={onTaskNameChange}
                 containerClassName={error?.message ? 'invalid' : ''}
-                inputClassName={error?.message ? `${styles['invalid-input']}` : ''}
+                inputClassName={error?.message ? `${styles['invalid-input']}` : `${styles.input}`}
               />
               <div className={styles['invalid-feedback']}>{error?.message}</div>
-            </>
+            </div>
           )}></Controller>
 
         <Controller
           control={control}
           name="info"
           render={({ field, fieldState: { error } }) => (
-            <>
+            <div className="controller-container">
               <TextField
                 label={'What to do (description)'}
                 value={field.value}
                 onChange={onTaskInfoChange}
                 containerClassName={error?.message ? 'invalid' : ''}
-                inputClassName={error?.message ? `${styles['invalid-input']}` : ''}
+                inputClassName={error?.message ? `${styles['invalid-input']}` : `${styles.input}`}
               />
               <div className={styles['invalid-feedback']}>{error?.message}</div>
-            </>
+            </div>
           )}></Controller>
 
         {editedTask?.isCompleted ? (
@@ -109,7 +102,12 @@ function TaskForm() {
             control={control}
             name="isImportant"
             render={({ field, fieldState: { error } }) => (
-              <Checkbox checked={field.value} label={'Important'} onChange={onIsImportantChange} />
+              <Checkbox
+                checked={field.value}
+                label={'Important'}
+                onChange={onIsImportantChange}
+                containerClassName={styles['input-container']}
+              />
             )}></Controller>
         )}
 

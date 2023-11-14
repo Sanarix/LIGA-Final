@@ -16,7 +16,7 @@ export function Pagination() {
   const disabled = {
     start: () => pageNumbers[0] === 1,
     prev: () => currentPage === 1,
-    end: () => pageNumbers.slice(-1)[0] === 1,
+    end: () => pageNumbers.slice(-1)[0] === totalPages,
     next: () => currentPage === totalPages,
   };
 
