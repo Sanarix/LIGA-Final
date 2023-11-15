@@ -1,4 +1,4 @@
-import { FetchedTasks } from 'types/task/Task.types';
+import { FetchedTasks, SearchType } from 'src/types';
 
 export interface ReduxStore {
   tasksList: {
@@ -6,6 +6,6 @@ export interface ReduxStore {
     isLoading: boolean;
   };
   errors: { value: string | null };
-  search: { searchQuery: 'all' | 'active' | 'done' | 'important' };
+  search: { searchQuery: SearchType };
   pagination: { currentPage: number; currentTasks: FetchedTasks; tasksPerPage: number };
 }
