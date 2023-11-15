@@ -1,8 +1,4 @@
-type Props = {
-  totalPages: number;
-  maxPageVisible: number;
-  currentPage: number;
-};
+import { Props } from './getPageNumbers.types';
 
 export function getPageNumbers({ totalPages, maxPageVisible, currentPage }: Props): number[] {
   const half = Math.round(maxPageVisible / 2);

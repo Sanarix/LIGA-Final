@@ -1,7 +1,4 @@
-type Props = {
-  totalTasks: number;
-  tasksPerPage: number;
-};
+import { Props } from './getTotalPages.types';
 
 export function getTotalPages({ totalTasks, tasksPerPage }: Props): number {
   const result = [];
