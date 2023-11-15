@@ -29,7 +29,6 @@ export const fetchTasks = (searchQuery?: string) => async (dispatch: Dispatch) =
       throw new Error();
     }
   } catch (e) {
-    console.log(e);
     dispatch(setError({ message: 'Server is not responding' }));
   } finally {
     dispatch(unsetLoader());
@@ -49,7 +48,6 @@ export const fetchTasksByName =
         throw new Error();
       }
     } catch (e) {
-      console.log(e);
       dispatch(setError({ message: 'Task not found' }));
     } finally {
       dispatch(unsetLoader());
@@ -62,7 +60,6 @@ export const checkTaskById = (taskId: string) => async (dispatch: Dispatch) => {
     checkTaskByIdApi({ taskId });
     dispatch(checkTask({ taskId }));
   } catch (e) {
-    console.log(e);
     dispatch(setError({ message: 'Task not available' }));
   } finally {
     dispatch(unsetLoader());
@@ -77,7 +74,6 @@ export const addTask = (taskData: AddTaskType) => async (dispatch: Dispatch) => 
       dispatch(pushTask(axiosResponse.data));
     }
   } catch (e) {
-    console.log(e);
     dispatch(setError({ message: 'Server is not responding' }));
   } finally {
     dispatch(unsetLoader());
@@ -92,7 +88,6 @@ export const changeDataTask = (taskData: ChangeTaskType) => async (dispatch: Dis
       dispatch(changeTask(axiosResponse.data));
     }
   } catch (e) {
-    console.log(e);
     dispatch(setError({ message: 'Server is not responding' }));
   } finally {
     dispatch(unsetLoader());
@@ -105,7 +100,6 @@ export const removeTaskById = (taskId: DeletedId) => async (dispatch: Dispatch) 
     removeTasksApi(taskId);
     dispatch(deleteTask(taskId));
   } catch (e) {
-    console.log(e);
     dispatch(setError({ message: 'Task is not available' }));
   } finally {
     dispatch(unsetLoader());
