@@ -13,3 +13,7 @@
   font-weight: bold;
   font-size: 1.5rem;
 }
+
+#search-form{
+  display: flex;
+}

@@ -1,0 +1,8 @@
+.btn-query {
+  height: 100%;
+}
+
+.btn-query_active {
+  background-color: yellow;
+  color: white;
+}
