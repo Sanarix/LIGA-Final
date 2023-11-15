@@ -31,7 +31,7 @@ export const tasksListSlice = createSlice({
           state.tasksData = tasks.filter((task) => task.isCompleted === true);
           break;
         case IMPORTANT_TASKS:
-          state.tasksData = tasks.filter((task) => task.isImportant === true);
+          state.tasksData = tasks.filter((task) => task.isImportant === true && task.isCompleted === false);
           break;
         default:
           state.tasksData = action.payload.tasks;

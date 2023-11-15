@@ -38,7 +38,7 @@
 }
 
 .invalid-input {
-  border: 2px solid tomato;
+  border: 2px solid #ff6347;
 }
 
 .invalid-feedback {

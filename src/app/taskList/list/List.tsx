@@ -61,7 +61,7 @@ function List() {
                     <img src={iconDeleteReserve} alt="edit" />
                   </picture>
                 </button>
-                {task.isImportant && <span className={styles['is-important']}>Important</span>}
+                {task.isImportant && !task.isCompleted && <span className={styles['is-important']}>Important</span>}
               </div>
             </div>
           );
