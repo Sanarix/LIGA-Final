@@ -1,0 +1,15 @@
+.header {
+  margin-bottom: 10%;
+}
+
+.addButton {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  padding: 5% 0;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
