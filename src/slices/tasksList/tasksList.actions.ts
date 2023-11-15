@@ -57,7 +57,7 @@ export const fetchTasksByName =
 export const checkTaskById = (taskId: string) => async (dispatch: Dispatch) => {
   try {
     dispatch(setLoader());
-    checkTaskByIdApi({ taskId });
+    await checkTaskByIdApi({ taskId });
     dispatch(checkTask({ taskId }));
   } catch (e) {
     dispatch(setError({ message: 'Task not available' }));
@@ -97,7 +97,7 @@ export const changeDataTask = (taskData: ChangeTaskType) => async (dispatch: Dis
 export const removeTaskById = (taskId: DeletedId) => async (dispatch: Dispatch) => {
   try {
     dispatch(setLoader());
-    removeTasksApi(taskId);
+    await removeTasksApi(taskId);
     dispatch(deleteTask(taskId));
   } catch (e) {
     dispatch(setError({ message: 'Task is not available' }));
