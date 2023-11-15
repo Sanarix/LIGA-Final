@@ -4,12 +4,27 @@
   justify-content: center;
 }
 
-.tasks-wrapper {
+.list {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 250px;
+}
+
+.task-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 5%;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 5px;
+  padding: 0 2%;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3);
+  background-color: #E5E5E5;
+  color: #080C25;
 }
 
 .task {

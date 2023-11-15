@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import { ButtonGroupProps } from './ButtonGroup.types';
 import styles from './ButtonGroup.module.css';
+import { ButtonGroupProps } from './ButtonGroup.types';
 import { useSearchSlice } from 'src/slices';
 
 function ButtonGroup({ buttons }: ButtonGroupProps) {

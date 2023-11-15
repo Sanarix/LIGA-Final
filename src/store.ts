@@ -3,7 +3,7 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import tasksListReducer from './slices/tasksList/tasksList.slice';
-import { ReduxStore } from 'types/redux/redux';
+import { ReduxStore } from 'types/redux/redux.types';
 import errorsSlice from 'src/slices/errors/error.slice';
 import searchSlice from 'src/slices/search/search.slice';
 import paginationSlice from 'src/slices/pagination/pagination.slice';

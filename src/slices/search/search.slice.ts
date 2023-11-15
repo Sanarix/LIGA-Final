@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ALL_TASKS } from 'constants/searchTypes';
+import { SearchType } from 'src/types';
 
-const initialState: { searchQuery: 'all' | 'active' | 'done' | 'important' } = { searchQuery: ALL_TASKS };
+const initialState: { searchQuery: SearchType } = { searchQuery: ALL_TASKS };
 
 export const searchSlice = createSlice({
   name: 'search',

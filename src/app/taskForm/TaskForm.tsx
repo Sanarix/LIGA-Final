@@ -7,7 +7,7 @@ import styles from './TaskForm.module.css';
 import { validationSchema } from './TaskFormValidationSchema';
 import type { TaskFormType } from 'src/types';
 import { Checkbox, PageContainer, TextField } from 'src/components';
-import { ReduxStore } from 'types/redux/redux';
+import { ReduxStore } from 'types/redux/redux.types';
 import { useTasksSlice } from 'src/slices';
 import { getTaskFormHandlers, mapTaskId } from 'src/utils';
 

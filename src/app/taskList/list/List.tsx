@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import { memo } from 'react';
 import styles from './List.module.css';
+import iconDeleteReserve from 'assets/icons/icon-delete-reserve.png';
+import iconEditReserve from 'assets/icons/icon-edit-reserve.png';
 import { MemoPagination } from 'app/index';
 import iconDelete from 'assets/icons/icon-delete.svg';
 import iconEdit from 'assets/icons/icon-edit.svg';
-import { Task, Loader, Checkbox } from 'src/components';
+import { Loader, Checkbox } from 'src/components';
 import { useTasksSlice, usePaginationSlice } from 'src/slices';
 import { mapDeleteTask } from 'src/utils';
 
@@ -17,11 +19,11 @@ function List() {
   const currentTasks = tasks.slice(firstTaskIndex, lastTaskIndex);
 
   return (
-    <div className={styles['tasks-wrapper']}>
+    <div className={styles.list}>
       <Loader isLoading={isLoading}>
         {currentTasks.map((task) => {
           return (
-            <Task key={task.id}>
+            <div className={styles['task-wrapper']} key={task.id}>
               <div className={styles['checkbox-container']}>
                 <Checkbox
                   label=""
@@ -40,22 +42,28 @@ function List() {
               </div>
               <div className={styles.buttons}>
                 <Link to={`/TaskForm/${task.id}`} className={styles.button}>
-                  <svg className={styles.icon} aria-hidden="true">
+                  {/* <svg className={styles.icon} aria-hidden="true">
                     <use xlinkHref={`${iconEdit}`}></use>
-                  </svg>
+                  </svg> */}
+                  <picture className={styles['icon-reserve']}>
+                    <img src={iconEditReserve} alt="edit" />
+                  </picture>
                 </Link>
                 <button
                   className={styles.button}
                   onClick={async () => {
                     await dispatch(removeTaskById(mapDeleteTask(task.id)));
                   }}>
-                  <svg className={styles.icon} aria-hidden="true">
+                  {/* <svg className={styles.icon} aria-hidden="true">
                     <use xlinkHref={`${iconDelete}`}></use>
-                  </svg>
+                  </svg> */}
+                  <picture className={styles['icon-reserve']}>
+                    <img src={iconDeleteReserve} alt="edit" />
+                  </picture>
                 </button>
                 {task.isImportant && <span className={styles['is-important']}>Important</span>}
               </div>
-            </Task>
+            </div>
           );
         })}
         {currentTasks.length === 0 && <h3>Not found</h3>}
