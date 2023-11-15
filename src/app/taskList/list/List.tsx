@@ -35,8 +35,8 @@ function List() {
                 />
               </div>
               <div className={styles.task}>
-                <h2 className={styles.taskHeader}>{task.name}</h2>
-                <p className={styles.taskText}>{task.info}</p>
+                <h2 className={styles['task-header']}>{task.name}</h2>
+                <p className={styles['task-text']}>{task.info}</p>
               </div>
               <div className={styles.buttons}>
                 <Link to={`/TaskForm/${task.id}`} className={styles.button}>
@@ -53,7 +53,7 @@ function List() {
                     <use xlinkHref={`${iconDelete}`}></use>
                   </svg>
                 </button>
-                {task.isImportant && <span className={styles.isImportant}>Important</span>}
+                {task.isImportant && <span className={styles['is-important']}>Important</span>}
               </div>
             </Task>
           );

@@ -9,7 +9,7 @@
   margin-bottom: 10%;
 }
 
-.addButton {
+.add-btn {
   display: block;
   text-align: center;
   text-decoration: none;
@@ -23,11 +23,11 @@
   border-radius: 5px;
 }
 
-.addButton:hover {
+.add-button:hover {
   color: greenyellow;
 }
 
-.errorBlock {
+.error-block {
   width: 100%;
   position: absolute;
   top: 0;

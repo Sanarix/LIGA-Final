@@ -14,7 +14,11 @@ function ButtonGroup({ buttons }: ButtonGroupProps) {
             e.preventDefault();
             searchDispatch(changeSearch(buttonText));
           }}
-          className={searchQuery === buttonText ? `${styles.customButton} ${styles.active}` : styles.customButton}>
+          className={
+            searchQuery === buttonText
+              ? `${styles['custom-button']} ${styles['custom-button_active']}`
+              : styles['custom-button']
+          }>
           {buttonText}
         </button>
       ))}

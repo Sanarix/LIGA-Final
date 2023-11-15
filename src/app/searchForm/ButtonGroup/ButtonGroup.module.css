@@ -2,19 +2,19 @@
   display: flex;
 }
 
-.customButton:first-child{
+.custom-button:first-child{
   border-radius: 5px 0 0 5px;
 }
 
-.customButton:last-child{
+.custom-button:last-child{
   border-radius: 0 5px 5px 0;
 }
 
-.customButton:nth-child(odd):not(.customButton:first-child){
+.custom-button:nth-child(odd):not(.customButton:first-child){
   border-left: 1px solid grey;
 }
 
-.customButton:nth-child(even){
+.custom-button:nth-child(even){
   border-left: 1px solid grey;
 }
 
@@ -22,13 +22,13 @@
   border-radius: 0 5px 5px 0;
 }
 
-.customButton {
+.custom-button {
   box-sizing: border-box;
   cursor: pointer;
   border: none;
 }
 
-.active{
+.custom-button_active{
   background-color: #06090E;
   border: #06090E;
   color: white;
