@@ -63,7 +63,7 @@ export const checkTaskById = (taskId: string) => async (dispatch: Dispatch) => {
     dispatch(checkTask({ taskId }));
   } catch (e) {
     console.log(e);
-    throw new Error('Task not available');
+    dispatch(setError({ message: 'Task not available' }));
   } finally {
     dispatch(unsetLoader());
   }
@@ -78,7 +78,7 @@ export const addTask = (taskData: AddTaskType) => async (dispatch: Dispatch) => 
     }
   } catch (e) {
     console.log(e);
-    throw new Error('Server is not responding');
+    dispatch(setError({ message: 'Server is not responding' }));
   } finally {
     dispatch(unsetLoader());
   }
@@ -93,7 +93,7 @@ export const changeDataTask = (taskData: ChangeTaskType) => async (dispatch: Dis
     }
   } catch (e) {
     console.log(e);
-    throw new Error('Server is not responding');
+    dispatch(setError({ message: 'Server is not responding' }));
   } finally {
     dispatch(unsetLoader());
   }
@@ -106,7 +106,7 @@ export const removeTaskById = (taskId: DeletedId) => async (dispatch: Dispatch) 
     dispatch(deleteTask(taskId));
   } catch (e) {
     console.log(e);
-    throw new Error('Task is not available');
+    dispatch(setError({ message: 'Task is not available' }));
   } finally {
     dispatch(unsetLoader());
   }
