@@ -17,7 +17,6 @@ function SearchForm() {
     if (searchText.trim().length > 0) {
       dispatch(fetchTasksByName({ taskName: searchText }, searchQuery));
     } else {
-      //Todo проверять searchType
       dispatch(fetchTasks(searchQuery));
     }
 
