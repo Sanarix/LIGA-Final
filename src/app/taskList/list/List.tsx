@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
 import { memo } from 'react';
 import styles from './List.module.css';
-import iconDeleteReserve from 'assets/icons/icon-delete-reserve.png';
-import iconEditReserve from 'assets/icons/icon-edit-reserve.png';
 import { MemoPagination } from 'app/index';
 import iconDelete from 'assets/icons/icon-delete.svg';
 import iconEdit from 'assets/icons/icon-edit.svg';
@@ -42,24 +40,22 @@ function List() {
               </div>
               <div className={styles.buttons}>
                 <Link to={`/TaskForm/${task.id}`} className={styles.button}>
-                  {/* <svg className={styles.icon} aria-hidden="true">
-                    <use xlinkHref={`${iconEdit}`}></use>
-                  </svg> */}
-                  <picture className={styles['icon-reserve']}>
-                    <img src={iconEditReserve} alt="edit" />
-                  </picture>
+                  <div className={styles.icon}>
+                    <svg aria-hidden="true">
+                      <use xlinkHref={`${iconEdit}`}></use>
+                    </svg>
+                  </div>
                 </Link>
                 <button
                   className={styles.button}
                   onClick={async () => {
                     await dispatch(removeTaskById(mapDeleteTask(task.id)));
                   }}>
-                  {/* <svg className={styles.icon} aria-hidden="true">
-                    <use xlinkHref={`${iconDelete}`}></use>
-                  </svg> */}
-                  <picture className={styles['icon-reserve']}>
-                    <img src={iconDeleteReserve} alt="edit" />
-                  </picture>
+                  <div className={styles.icon}>
+                    <svg aria-hidden="true">
+                      <use xlinkHref={`${iconDelete}`}></use>
+                    </svg>
+                  </div>
                 </button>
                 {task.isImportant && !task.isCompleted && <span className={styles['is-important']}>Important</span>}
               </div>
