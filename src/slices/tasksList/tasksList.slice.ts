@@ -15,11 +15,12 @@ export const tasksListSlice = createSlice({
   reducers: {
     setTasks: (state, action) => {
       const tasks: FetchedTasks = action.payload.tasks;
-      if (!action.payload.searchQuery) {
-        action.payload.searchQuery = ALL_TASKS;
+      let filter = action.payload.searchQuery;
+      if (!filter) {
+        filter = ALL_TASKS;
       }
 
-      switch (action.payload.searchQuery) {
+      switch (filter) {
         case ALL_TASKS:
           state.tasksData = tasks;
           break;
@@ -33,10 +34,9 @@ export const tasksListSlice = createSlice({
           state.tasksData = tasks.filter((task) => task.isImportant === true);
           break;
         default:
+          state.tasksData = action.payload.tasks;
           throw new Error('Incorrect search query');
       }
-
-      // state.tasksData = action.payload.tasks;
     },
 
     pushTask: (state, action) => {

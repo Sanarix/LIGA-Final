@@ -58,16 +58,20 @@ export const fetchTasksByName =
 
 export const checkTaskById = (taskId: string) => async (dispatch: Dispatch) => {
   try {
+    dispatch(setLoader());
     checkTaskByIdApi({ taskId });
     dispatch(checkTask({ taskId }));
   } catch (e) {
     console.log(e);
     throw new Error('Task not available');
+  } finally {
+    dispatch(unsetLoader());
   }
 };
 
 export const addTask = (taskData: AddTaskType) => async (dispatch: Dispatch) => {
   try {
+    dispatch(setLoader());
     const axiosResponse: AxiosResponse<FetchedTasks> = await addTaskApi(taskData);
     if (axiosResponse.data) {
       dispatch(pushTask(axiosResponse.data));
@@ -75,11 +79,14 @@ export const addTask = (taskData: AddTaskType) => async (dispatch: Dispatch) => 
   } catch (e) {
     console.log(e);
     throw new Error('Server is not responding');
+  } finally {
+    dispatch(unsetLoader());
   }
 };
 
 export const changeDataTask = (taskData: ChangeTaskType) => async (dispatch: Dispatch) => {
   try {
+    dispatch(setLoader());
     const axiosResponse: AxiosResponse<FetchedTasks> = await changeTaskApi(taskData);
     if (axiosResponse.data) {
       dispatch(changeTask(axiosResponse.data));
@@ -87,15 +94,20 @@ export const changeDataTask = (taskData: ChangeTaskType) => async (dispatch: Dis
   } catch (e) {
     console.log(e);
     throw new Error('Server is not responding');
+  } finally {
+    dispatch(unsetLoader());
   }
 };
 
 export const removeTaskById = (taskId: DeletedId) => async (dispatch: Dispatch) => {
   try {
+    dispatch(setLoader());
     removeTasksApi(taskId);
     dispatch(deleteTask(taskId));
   } catch (e) {
     console.log(e);
     throw new Error('Task is not available');
+  } finally {
+    dispatch(unsetLoader());
   }
 };
