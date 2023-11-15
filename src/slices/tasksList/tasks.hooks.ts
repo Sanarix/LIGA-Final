@@ -1,5 +1,12 @@
-import { fetchTasks, fetchTasksByName, checkTaskById, removeTaskById } from './tasksList.actions';
-import { ReduxStore } from 'types/redux/redux';
+import {
+  fetchTasks,
+  fetchTasksByName,
+  checkTaskById,
+  removeTaskById,
+  addTask,
+  changeDataTask,
+} from './tasksList.actions';
+import { ReduxStore } from 'src/types';
 import { useAppDispatch, useAppSelector } from 'src/store';
 
 export const useTasksSlice = () => {
@@ -7,5 +14,15 @@ export const useTasksSlice = () => {
   const tasks = useAppSelector((state: ReduxStore) => state.tasksList.tasksData);
   const dispatch = useAppDispatch();
 
-  return { isLoading, tasks, dispatch, fetchTasks, fetchTasksByName, checkTaskById, removeTaskById };
+  return {
+    isLoading,
+    tasks,
+    dispatch,
+    fetchTasks,
+    fetchTasksByName,
+    checkTaskById,
+    removeTaskById,
+    addTask,
+    changeDataTask,
+  };
 };

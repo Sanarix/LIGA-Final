@@ -1,11 +1,34 @@
 .checkbox {
-  width: 10%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+}
+
+.task-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 5%;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 5px;
+  padding: 0 2%;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3);
+  background-color: #E5E5E5;
+  color: #080C25;
+}
+
 .task {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,17 +36,57 @@
   width: 80%;
 }
 
+.task-header {
+  width: 100%;
+  word-wrap: break-word;
+  text-align: center;
+}
+
+.task-text {
+  width: 100%;
+  word-wrap: break-word;
+  text-align: center;
+}
+
 .buttons {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 10%;
 }
 
 .button {
-  background-color: lemonchiffon;
   margin-bottom: 5%;
+  border: none;
+  background-color: inherit;
 }
 
-.deleteButton {
-  background: tomato;
+.icon {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.is-important {
+  position: absolute;
+  top: -15%;
+  left: 80%;
+  text-align: center;
+  font-weight: 600;
+  color: green;
+  user-select: none;
+  background-color: #ffd700;
+  padding: 0 1%;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px 1px rgba(0,0,0,0.2)
+}
+
+@media screen and (min-width: 768px) {
+  .isImportant {
+    left: 85%;
+  }
 }

@@ -1,8 +1,14 @@
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
 .header {
   font-size: 3rem;
 }
 
-.add-button {
+.button {
   display: block;
   text-decoration: none;
   text-align: center;
@@ -11,4 +17,31 @@
   color: white;
   padding: 2%;
   font-size: 1.5rem;
+  border: black;
+  border-radius: 5px;
+}
+
+.button:hover {
+  color: greenyellow
+}
+
+.input-container {
+  display: flex;
+  align-items: flex-start;
+  padding: 0;
+}
+
+.input {
+  font-weight: 600;
+  font-size: 1.5em;
+  padding: 1%;
+}
+
+.invalid-input {
+  border: 2px solid #ff6347;
+}
+
+.invalid-feedback {
+  color: tomato;
+  position: relative;
 }

@@ -1,73 +1,122 @@
-import { useParams, Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
-import style from './TaskForm.module.css';
-import { Checkbox, PageContainer, TextField } from 'src/components/index';
-import { addTask, changeTask } from 'src/slices/tasksList/tasksList.slice';
-import { ReduxStore } from 'types/redux/redux';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { memo, useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import styles from './TaskForm.module.css';
+import { validationSchema } from './TaskFormValidationSchema';
+import type { TaskFormType } from 'src/types';
+import { Checkbox, PageContainer, TextField } from 'src/components';
+import { ReduxStore } from 'types/redux/redux.types';
+import { useTasksSlice } from 'src/slices';
+import { getTaskFormHandlers, mapTaskId } from 'src/utils';
 
-export function TaskForm() {
+function TaskForm() {
   const { id } = useParams();
+  const { addTask, changeDataTask, dispatch, fetchTasks } = useTasksSlice();
+
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, []);
+
+  const navigate = useNavigate();
+
   const editedTask = useSelector((state: ReduxStore) => {
-    return state.tasksList.tasksData.find((task) => task.id === Number(id));
+    return state.tasksList.tasksData.find((task) => task.id === mapTaskId(id));
   });
-  const dispatch = useDispatch();
-  const [taskName, setTaskName] = useState(editedTask?.name || '');
-  const [taskDescr, setTaskDescr] = useState(editedTask?.info || '');
-  const [isImportant, setIsImportant] = useState(editedTask?.isImportant || false);
 
-  //TODO вспомнить для чего делал
-  // function clearForm() {
-  //   setTaskName('');
-  //   setTaskDescr('');
-  //   setIsImportant(false);
-  // }
+  const defaultFormValues: TaskFormType = {
+    taskName: editedTask?.name || '',
+    info: editedTask?.info || '',
+    isImportant: editedTask?.isImportant || false,
+  };
 
-  function clickHandler(e: React.FormEvent) {
-    e.preventDefault();
+  const { handleSubmit, control, setValue } = useForm<TaskFormType>({
+    defaultValues: defaultFormValues,
+    resolver: yupResolver(validationSchema),
+  });
+
+  const { onTaskNameChange, onTaskInfoChange, onIsImportantChange } = getTaskFormHandlers(setValue);
+
+  function submitHandler(data: TaskFormType) {
     if (id) {
       dispatch(
-        changeTask({
+        changeDataTask({
           id: id,
-          name: taskName,
-          info: taskDescr,
-          isImportant: isImportant,
+          ...data,
+          name: data.taskName, // потому что в типах именно name
         })
       );
     } else {
-      dispatch(addTask({ name: taskName, info: taskDescr, isImportant: isImportant }));
-      // clearForm();
+      dispatch(
+        addTask({
+          ...data,
+          name: data.taskName, // потому что в типах именно name
+        })
+      );
     }
+    navigate('/', { replace: true });
   }
 
   return (
     <PageContainer>
-      <header className={style.header}>Todo List | {id ? 'EDIT TASK' : 'ADD TASK'}</header>
-      <form className="task-form" onSubmit={(e) => clickHandler(e)}>
-        <TextField
-          label={'Task name'}
-          value={taskName}
-          onChange={(e) => {
-            setTaskName(e.target.value);
-          }}
-        />
-        <TextField
-          label={'What to do (description)'}
-          value={taskDescr}
-          onChange={(e) => {
-            setTaskDescr(e.target.value);
-          }}
-        />
-        <Checkbox
-          label={'Important'}
-          onChange={() => {
-            setIsImportant((prev) => !prev);
-          }}
-        />
-        <Link to="/" className={style['add-button']} replace>
-          {id ? 'EDIT TASK' : 'ADD TASK'}
-        </Link>
+      <header className={styles.header}>Todo List | {id ? 'EDIT TASK' : 'ADD TASK'}</header>
+      <form className={styles['task-form']} onSubmit={handleSubmit(submitHandler)}>
+        <Controller
+          control={control}
+          name="taskName"
+          render={({ field, fieldState: { error } }) => (
+            <div className="controller-container">
+              <TextField
+                label={'Task name'}
+                value={field.value || defaultFormValues.taskName}
+                onChange={onTaskNameChange}
+                containerClassName={error?.message ? 'invalid' : ''}
+                inputClassName={error?.message ? `${styles['invalid-input']}` : `${styles.input}`}
+              />
+              <div className={styles['invalid-feedback']}>{error?.message}</div>
+            </div>
+          )}></Controller>
+
+        <Controller
+          control={control}
+          name="info"
+          render={({ field, fieldState: { error } }) => (
+            <div className="controller-container">
+              <TextField
+                label={'What to do (description)'}
+                value={field.value || defaultFormValues.info}
+                onChange={onTaskInfoChange}
+                containerClassName={error?.message ? 'invalid' : ''}
+                inputClassName={error?.message ? `${styles['invalid-input']}` : `${styles.input}`}
+              />
+              <div className={styles['invalid-feedback']}>{error?.message}</div>
+            </div>
+          )}></Controller>
+
+        {editedTask?.isCompleted ? (
+          <></>
+        ) : (
+          <Controller
+            control={control}
+            name="isImportant"
+            render={({ field }) => (
+              <Checkbox
+                checked={field.value || defaultFormValues.isImportant}
+                label={'Important'}
+                onChange={onIsImportantChange}
+                containerClassName={styles['input-container']}
+              />
+            )}></Controller>
+        )}
+
+        <button className={styles['button']}>{id ? 'EDIT TASK' : 'ADD TASK'}</button>
+        <button type="button" className={styles['button']} onClick={() => navigate('/', { replace: true })}>
+          Back
+        </button>
       </form>
     </PageContainer>
   );
 }
+
+export const MemoTaskForm = memo(TaskForm);

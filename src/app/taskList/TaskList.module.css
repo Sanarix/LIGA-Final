@@ -1,19 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Glass+Antiqua&family=Heebo:wght@600&display=swap');
+
+.task-list {
+  font-family: 'Glass Antiqua', cursive;
+  font-family: 'Heebo', sans-serif;
+}
+
 .header {
   margin-bottom: 10%;
 }
 
-.addButton {
+.add-btn {
   display: block;
   text-align: center;
   text-decoration: none;
   width: 100%;
   padding: 5% 0;
-  background-color: black;
+  background-color: #06090E;
   color: white;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 2rem;
+  margin-bottom: 10%;
+  border-radius: 5px;
 }
 
-#search-form{
-  display: flex;
+.add-button:hover {
+  color: greenyellow;
+}
+
+.error-block {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: tomato;
+  text-align: center;
+  transition-duration: 200ms;
+  animation-name: errorFadeTop;
+  animation-duration: 200ms;
+}
+
+@keyframes errorFadeTop {
+  from {
+    top: -100%;
+  }
+
+  to {
+    top: 0;
+  }
 }

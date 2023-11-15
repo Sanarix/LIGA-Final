@@ -1,45 +1,56 @@
 import { Dispatch } from 'redux';
 import { AxiosResponse } from 'axios';
-import { setLoader, unsetLoader, setTasks, checkTask, deleteTask } from 'src/slices/tasksList/tasksList.slice';
-import { setError } from 'src/slices/errors/error.slice';
+import {
+  setLoader,
+  unsetLoader,
+  setTasks,
+  checkTask,
+  pushTask,
+  changeTask,
+  deleteTask,
+} from 'src/slices/tasksList/tasksList.slice';
+import { setError } from 'src/slices';
 import { getTasksApi } from 'api/getTasksApi';
-import { AddTask, DeletedId, FetchedTasks } from 'types/task/Task.types';
+import type { AddTaskType, ChangeTaskType, DeletedId, FetchedTasks } from 'types/task/Task.types';
 import { removeTasksApi } from 'api/removeTasksApi';
 import { getTasksByNameApi } from 'api/getTasksByNameApi';
 import { checkTaskByIdApi } from 'api/checkedTaskByIdApi';
+import { addTaskApi } from 'api/addTaskApi';
+import { changeTaskApi } from 'api/changeTaskApi';
 
-export const fetchTasks = () => async (dispatch: Dispatch) => {
+export const fetchTasks = (searchQuery?: string) => async (dispatch: Dispatch) => {
   try {
     dispatch(setLoader());
     const axiosResponse: AxiosResponse<FetchedTasks> = await getTasksApi();
     if (Array.isArray(axiosResponse.data)) {
-      dispatch(setTasks({ tasks: axiosResponse.data }));
+      dispatch(setError({ message: '' }));
+      dispatch(setTasks({ tasks: axiosResponse.data, searchQuery }));
     } else {
       throw new Error();
     }
   } catch (e) {
     console.log(e);
-    dispatch(setError({ message: 'Произошла ошибка' }));
+    dispatch(setError({ message: 'Server is not responding' }));
   } finally {
     dispatch(unsetLoader());
   }
 };
 
 export const fetchTasksByName =
-  ({ taskName, searchQuery }: { taskName: string; searchQuery: string }) =>
+  ({ taskName }: { taskName: string }, searchQuery: string) =>
   async (dispatch: Dispatch) => {
     try {
       dispatch(setLoader());
 
       const axiosResponse: AxiosResponse<FetchedTasks> = await getTasksByNameApi({ taskName, searchQuery });
       if (Array.isArray(axiosResponse.data)) {
-        dispatch(setTasks({ tasks: axiosResponse.data, filter: searchQuery }));
+        dispatch(setTasks({ tasks: axiosResponse.data, searchQuery }));
       } else {
         throw new Error();
       }
     } catch (e) {
       console.log(e);
-      dispatch(setError({ message: 'Произошла ошибка при получения задачи' }));
+      dispatch(setError({ message: 'Task not found' }));
     } finally {
       dispatch(unsetLoader());
     }
@@ -47,29 +58,56 @@ export const fetchTasksByName =
 
 export const checkTaskById = (taskId: string) => async (dispatch: Dispatch) => {
   try {
+    dispatch(setLoader());
     checkTaskByIdApi({ taskId });
-    dispatch(checkTask(taskId));
+    dispatch(checkTask({ taskId }));
   } catch (e) {
     console.log(e);
-    throw new Error('Произошла ошибка');
+    throw new Error('Task not available');
+  } finally {
+    dispatch(unsetLoader());
   }
 };
 
-export const addTask = (taskData: AddTask) => async (dispatch: Dispatch) => {
+export const addTask = (taskData: AddTaskType) => async (dispatch: Dispatch) => {
   try {
-    //TODO запрос
+    dispatch(setLoader());
+    const axiosResponse: AxiosResponse<FetchedTasks> = await addTaskApi(taskData);
+    if (axiosResponse.data) {
+      dispatch(pushTask(axiosResponse.data));
+    }
   } catch (e) {
     console.log(e);
-    throw new Error('Произошла ошибка');
+    throw new Error('Server is not responding');
+  } finally {
+    dispatch(unsetLoader());
+  }
+};
+
+export const changeDataTask = (taskData: ChangeTaskType) => async (dispatch: Dispatch) => {
+  try {
+    dispatch(setLoader());
+    const axiosResponse: AxiosResponse<FetchedTasks> = await changeTaskApi(taskData);
+    if (axiosResponse.data) {
+      dispatch(changeTask(axiosResponse.data));
+    }
+  } catch (e) {
+    console.log(e);
+    throw new Error('Server is not responding');
+  } finally {
+    dispatch(unsetLoader());
   }
 };
 
 export const removeTaskById = (taskId: DeletedId) => async (dispatch: Dispatch) => {
   try {
+    dispatch(setLoader());
     removeTasksApi(taskId);
     dispatch(deleteTask(taskId));
   } catch (e) {
     console.log(e);
-    throw new Error('Возникла ошибка при удалении');
+    throw new Error('Task is not available');
+  } finally {
+    dispatch(unsetLoader());
   }
 };

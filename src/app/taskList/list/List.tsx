@@ -1,63 +1,76 @@
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
-import type { ListProps } from './List.types';
+import { memo } from 'react';
 import styles from './List.module.css';
-import { Task } from 'src/app/taskList/task/Task';
-import { Checkbox } from 'components/Checkbox';
-import { useTasksSlice } from 'src/slices/tasksList/tasks.hooks';
-import { Loader } from 'components/Loader';
-import { mapDeleteTask } from 'utils/mapDeleteTask';
+import iconDeleteReserve from 'assets/icons/icon-delete-reserve.png';
+import iconEditReserve from 'assets/icons/icon-edit-reserve.png';
+import { MemoPagination } from 'app/index';
+import iconDelete from 'assets/icons/icon-delete.svg';
+import iconEdit from 'assets/icons/icon-edit.svg';
+import { Loader, Checkbox } from 'src/components';
+import { useTasksSlice, usePaginationSlice } from 'src/slices';
+import { mapDeleteTask } from 'src/utils';
 
-export function List({ tasksArr }: ListProps) {
-  const { isLoading, tasks, dispatch, fetchTasks, checkTaskById, removeTaskById } = useTasksSlice();
+function List() {
+  const { isLoading, tasks, dispatch, checkTaskById, removeTaskById } = useTasksSlice();
+  const { currentPage, tasksPerPage } = usePaginationSlice();
 
-  useEffect(() => {
-    dispatch(fetchTasks());
-  }, []);
-
-  useEffect(() => {
-    console.log(tasks);
-  }, [tasks]);
+  const lastTaskIndex = currentPage * tasksPerPage;
+  const firstTaskIndex = lastTaskIndex - tasksPerPage;
+  const currentTasks = tasks.slice(firstTaskIndex, lastTaskIndex);
 
   return (
-    <div className="tasks-wrapper">
+    <div className={styles.list}>
       <Loader isLoading={isLoading}>
-        {tasksArr.map((task) => {
+        {currentTasks.map((task) => {
           return (
-            <Task key={task.id}>
-              <div className={styles.checkbox}>
+            <div className={styles['task-wrapper']} key={task.id}>
+              <div className={styles['checkbox-container']}>
                 <Checkbox
                   label=""
-                  containerClassName={styles['checkbox-container']}
+                  containerClassName={styles.checkbox}
                   checked={task.isCompleted ? true : false}
                   disabled={task.isCompleted ? true : false}
-                  onChange={async () => {
+                  onChange={async (e) => {
+                    e.currentTarget.disabled = true;
                     await dispatch(checkTaskById(String(task.id)));
                   }}
                 />
-                {task.isImportant ? <p>important</p> : <></>}
               </div>
               <div className={styles.task}>
-                <h2>{task.name}</h2>
-                <p>{task.info}</p>
+                <h2 className={styles['task-header']}>{task.name}</h2>
+                <p className={styles['task-text']}>{task.info}</p>
               </div>
               <div className={styles.buttons}>
                 <Link to={`/TaskForm/${task.id}`} className={styles.button}>
-                  Edit
+                  {/* <svg className={styles.icon} aria-hidden="true">
+                    <use xlinkHref={`${iconEdit}`}></use>
+                  </svg> */}
+                  <picture className={styles['icon-reserve']}>
+                    <img src={iconEditReserve} alt="edit" />
+                  </picture>
                 </Link>
                 <button
-                  className={styles.deleteButton}
+                  className={styles.button}
                   onClick={async () => {
                     await dispatch(removeTaskById(mapDeleteTask(task.id)));
                   }}>
-                  Delete
+                  {/* <svg className={styles.icon} aria-hidden="true">
+                    <use xlinkHref={`${iconDelete}`}></use>
+                  </svg> */}
+                  <picture className={styles['icon-reserve']}>
+                    <img src={iconDeleteReserve} alt="edit" />
+                  </picture>
                 </button>
+                {task.isImportant && !task.isCompleted && <span className={styles['is-important']}>Important</span>}
               </div>
-            </Task>
+            </div>
           );
         })}
+        {currentTasks.length === 0 && <h3>Not found</h3>}
+        {tasks.length <= tasksPerPage ? <></> : <MemoPagination />}
       </Loader>
-      {tasksArr.length === 0 && <h3>Not found</h3>}
     </div>
   );
 }
+
+export const MemoList = memo(List);

@@ -1,0 +1,35 @@
+.button-group {
+  display: flex;
+}
+
+.custom-button:first-child{
+  border-radius: 5px 0 0 5px;
+}
+
+.custom-button:last-child{
+  border-radius: 0 5px 5px 0;
+}
+
+.custom-button:nth-child(odd):not(.customButton:first-child){
+  border-left: 1px solid grey;
+}
+
+.custom-button:nth-child(even){
+  border-left: 1px solid grey;
+}
+
+.button-group:last-child {
+  border-radius: 0 5px 5px 0;
+}
+
+.custom-button {
+  box-sizing: border-box;
+  cursor: pointer;
+  border: none;
+}
+
+.custom-button_active{
+  background-color: #06090E;
+  border: #06090E;
+  color: white;
+}
